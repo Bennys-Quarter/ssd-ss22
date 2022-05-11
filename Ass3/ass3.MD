@@ -15,10 +15,11 @@ The topic of smart home technology gained importance over the last decade, intro
 
 # Services and their Interfaces:
 
-## Component Diagram
+## UML Component and Sequence Diagram
+Figure \ref{fig:component} shows the main components of the project, Figure \ref{fig:sequence} illustrates a typical user interaction in form of a sequence diagram.
+
 ![Component diagram of the project \label{fig:component}](./Figures/component_diagram.png)
 
-## Sequence Diagram
 ![Sequence diagram of the project \label{fig:sequence}](./Figures/sequence_diagram.png)
 
 ## Physical Domain
