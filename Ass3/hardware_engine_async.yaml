@@ -1,0 +1,84 @@
+asyncapi: 2.4.0
+info:
+  description: |
+    Group Assignment 3: Project Specification - MQTT
+  version: "0.1"
+  title: SSD Project - Hardware Engine
+  contact:
+    email: lukas.dangelo@student.tugraz.at
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+servers:
+  test:
+    url: tcp://localhost:1883
+    description: Development server
+    protocol: mqtt
+channels:
+  ha-ea/module-{module_id}/outputs/K{output_number}:
+    parameters:
+        module_id:
+          $ref: '#/components/parameters/module_id'
+        output_number:
+          $ref: '#/components/parameters/output_number'
+    publish:
+      message:
+        $ref: '#/components/messages/set_output'
+  ha-ea/module-{module_id}/outputs/K{output_number}_state:
+    parameters:
+        module_id:
+          $ref: '#/components/parameters/module_id'
+        output_number:
+          $ref: '#/components/parameters/output_number'
+    subscribe:
+      message:
+        $ref: '#/components/messages/set_output'
+  ha-ea/module-{module_id}/outputs/I{input_number}:
+    parameters:
+        module_id:
+          $ref: '#/components/parameters/module_id'
+        input_number:
+          $ref: '#/components/parameters/input_number'
+    subscribe:
+      message:
+        $ref: '#/components/messages/get_input'
+  ha-ea/module-{module_id}/bus/sensors:
+    parameters:
+        module_id:
+          $ref: '#/components/parameters/module_id'
+    subscribe:
+      message:
+        $ref: '#/components/messages/sensor_object'
+components:
+  messages:
+    set_output:
+      payload:
+        type: string
+        description: Value of the output to set
+    get_input:
+      payload:
+        type: string
+        description: Value of the input to read
+    sensor_object:
+      payload:
+        type: object
+        description: Value of the sensors on the BUS interface on a specified module
+        parameters:
+          address:
+            type: string
+          sensor_value:
+            type: number
+            schema: float
+  parameters:
+    module_id:
+      description: Identifier of the module
+      schema:
+        type: integer
+    output_number:
+      description: Number of the output on a specified module
+      schema:
+        type: integer
+    input_number:
+      description: Number of the input on a specified module
+      schema:
+        type: integer 

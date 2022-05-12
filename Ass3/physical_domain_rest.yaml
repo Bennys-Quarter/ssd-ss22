@@ -1,0 +1,319 @@
+openapi: 3.0.0
+info:
+  description: |
+    Group Assignment 3: Project Specification - REST
+  version: "0.1"
+  title: SSD Project - Hardware Engine
+  contact:
+    email: lukas.dangelo@student.tugraz.at
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+servers:
+  - description: Test Instance
+    url: http://localhost:10000
+tags:
+  - name: inventory
+    description: Get physical Entity Inventory
+  - name: states
+    description: Get Sensor and Input State
+  - name: control
+    description: Set Output Control
+  - name: configuration
+    description: Hardware Engine Configuration Interface
+paths:
+  /api/inventory:
+    get:
+      tags:
+        - inventory
+      summary: Get a list of all available entities
+      operationId: show_inventory
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/inventory'
+        '400':
+          description: Invalid request
+        '401':
+          description: Unauthorized
+      security:
+        - ApiKeyAuth: []
+  /api/states/sensor/{id}:
+    get:
+      tags:
+        - states
+      summary: Get a the value of a sensor entity
+      operationId: show_sensor
+      parameters:
+        - name: id
+          in: path
+          description: identifier of the entity to return
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/sensor_entity'
+        '400':
+          description: Invalid request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Entity does not exist
+      security:
+        - ApiKeyAuth: []
+  /api/states/input/{id}:
+    get:
+      tags:
+        - states
+      summary: Get a the value of a input entity
+      operationId: show_input
+      parameters:
+        - name: id
+          in: path
+          description: identifier of the entity to return
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/input_entity'
+        '400':
+          description: Invalid request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Entity does not exist
+      security:
+        - ApiKeyAuth: []
+  /api/states/output/{id}:
+    get:
+      tags:
+        - states
+      summary: Get a the value of a output entity
+      operationId: show_output
+      parameters:
+        - name: id
+          in: path
+          description: identifier of the entity to return
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/output_entity'
+        '400':
+          description: Invalid request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Entity does not exist
+      security:
+        - ApiKeyAuth: []
+  /api/control/output:
+    post:
+      tags:
+        - control
+      summary: Set a the value of a output entity
+      operationId: set_output
+      requestBody:
+        description: Output key value pair
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/output_entity'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/output_entity'
+        '400':
+          description: Invalid request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Entity does not exist
+      security:
+        - ApiKeyAuth: []
+  /api/configuration/mqtt:
+    post:
+      tags:
+        - configuration
+      summary: Set a the parameters for the MQTT connection
+      operationId: set_mqtt_conn
+      requestBody:
+        description: MQTT Connection Paramters
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/mqtt_connection_parameters'
+      responses:
+        '200':
+          description: successful operation
+        '401':
+          description: Unauthorized
+        '400':
+          description: Invalid request
+      security:
+        - ApiKeyAuth: []
+    get:
+      tags:
+        - configuration
+      summary: Get the parameters for the MQTT connection
+      operationId: get_mqtt_conn
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/mqtt_connection_parameters'
+        '401':
+          description: Unauthorized
+        '400':
+          description: Invalid request
+      security:
+        - ApiKeyAuth: []
+  /api/configuration/register:
+    post:
+      tags:
+        - configuration
+      summary: Register a new entity
+      operationId: register_entity
+      requestBody:
+        description: Register entity Parameters
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/register_entity'
+      responses:
+        '200':
+          description: successful operation
+        '401':
+          description: Unauthorized
+        '400':
+          description: Invalid request
+        '409':
+          description: Entity already registered
+      security:
+        - ApiKeyAuth: []
+  /api/configuration/unregister/{id}:
+    delete:
+      tags:
+        - configuration
+      summary: Unregister a registered entity
+      operationId: unregister_entity
+      parameters:
+        - name: id
+          in: path
+          description: Identifier of the entity to unregister
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+        '401':
+          description: Unauthorized
+        '400':
+          description: Invalid request
+        '404':
+          description: Entity does not exist
+      security:
+        - ApiKeyAuth: []
+
+components:
+  schemas:
+    inventory:
+      type: array
+      items:
+        $ref: "#/components/schemas/inventory_element"
+    inventory_element:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum: ["sensor", "input", "output"]
+    sensor_entity:
+      type: object
+      properties:
+        id:
+          type: string
+        value: 
+          type: number
+          format: float
+        address:
+          type: string
+    input_entity:
+      type: object
+      properties:
+        id:
+          type: string
+        value: 
+          type: number
+          format: boolean
+    output_entity:
+      type: object
+      properties:
+        id:
+          type: string
+        value: 
+          type: number
+          format: boolean
+    mqtt_connection_parameters:
+      type: object
+      properties:
+        server: 
+          type: string
+          description: MQTT Server IP address or hostname
+        port:
+          type: integer
+          format: int32
+          description: TCP Port Number for MQTT
+        username:
+          type: string
+          description: MQTT username
+        password:
+          type: string
+          description: MQTT password
+    register_entity:
+      type: object
+      properties:
+        id:
+          type: string
+        mqtt_topic:
+          type: string
+          description: MQTT Topic of the entity to register
+        address:
+          type: string
+          description: Optional, used for sensors
+        type:
+          type: string
+          enum: ["sensor", "input", "output"]
+  securitySchemes:
+    ApiKeyAuth:        
+      type: apiKey
+      in: header      
+      name: X-API-KEY 
