@@ -3,7 +3,7 @@ import utils.mqtt as mqttutils
 
 
 class Entity:
-    def __int__(self, _id_: str, mqtt_topic="", address="", _type_="", target_value="", actual_value=""):
+    def __init__(self, _id_: str, mqtt_topic="", address="", _type_="", target_value="", actual_value=""):
         self._id_ = _id_
         self.mqtt_topic = mqtt_topic
         self.address = address
@@ -17,9 +17,9 @@ class Entity:
         mqttutils.unsubscribe(self.mqtt_topic)
 
     def register(self):
-        return dbutils.insert_entity(self.to_dict(self))
+        return dbutils.insert_entity(self.to_dict())
     def update(self):
-        dbutils.update_entity(self.to_dict(self))
+        dbutils.update_entity(self.to_dict())
 
     def to_dict(self):
         return {

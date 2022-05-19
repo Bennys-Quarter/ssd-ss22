@@ -15,7 +15,7 @@ schema_register_entity = {
     "type": "object",
     "properties": {
         "id": {"type": "string"},
-        "mqtt_topic": {"type": "number"},
+        "mqtt_topic": {"type": "string"},
         "address": {"type": "string"},
         "type": {"enum": ["sensor", "input", "output"]},
     },

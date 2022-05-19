@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, request, abort
 from flask_mqtt import Mqtt
-from utils import mqtt, configs
+from utils import mqtt, configs, database
 
 from endpoints.configuration import configuration
 app = Flask(__name__)
@@ -21,6 +21,7 @@ def bad_request(e):
     return jsonify(error=str(e)), 400
 
 if __name__ == '__main__':
+    database.init_db()
     app.config["MQTT"] = configs.read_mqtt_config("configuration.ini")
     mqtt_client = mqtt.init(mqtt_conn_params=app.config["MQTT"])
     mqtt.loop_start(mqtt_client)

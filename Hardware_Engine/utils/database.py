@@ -17,8 +17,9 @@ def get_entity_by_id(_id_: str):
     conn = sqlite3.connect("entities.db")
     cursor = conn.cursor()
     cursor.execute("""SELECT * FROM entities where id=?""", (_id_,))
-    result = cursor.fetchall()
+    result = cursor.fetchone()
     conn.close()
+    print(result)
     if not result:
         return {}
     return {
@@ -35,7 +36,7 @@ def get_entity_by_topic(mqtt_topic: str):
     conn = sqlite3.connect("entities.db")
     cursor = conn.cursor()
     cursor.execute("""SELECT * FROM entities where mqtt_topic=?""", (mqtt_topic,))
-    result = cursor.fetchall()
+    result = cursor.fetchone()
     conn.close()
     if not result:
         return {}
