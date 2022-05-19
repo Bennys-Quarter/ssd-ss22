@@ -1,5 +1,6 @@
 from paho.mqtt import client as mqtt_client
 from utils.database import get_topic_list
+from utils.entity import Entity
 
 topics = ["ESP-TEST/temp_sensor"]
 
@@ -13,6 +14,9 @@ def on_connect(client, userdata, flags, rc):
 
 def on_message(client, userdata, msg):
     print(f"Received `{msg.payload.decode()}` from `{msg.topic}` topic")
+    update_entity = Entity(mqtt_topic=msg.topic)
+    update_entity.actual_value = msg.payload.decode()
+    update_entity.update()
 
 
 def subscribe(client):

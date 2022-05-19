@@ -13,6 +13,7 @@ def init_db():
     conn.commit()
     conn.close()
 
+
 def get_topic_list():
     conn = sqlite3.connect("entities.db")
     cursor = conn.cursor()
@@ -23,6 +24,7 @@ def get_topic_list():
         return result[0]
     else:
         return []
+
 
 def get_entity_by_id(_id_: str):
     conn = sqlite3.connect("entities.db")
@@ -40,6 +42,18 @@ def get_entity_by_id(_id_: str):
         "target_value": result[3],
         "actual_value": result[4]
     }
+
+
+def get_inventory():
+    conn = sqlite3.connect("entities.db")
+    cursor = conn.cursor()
+    cursor.execute("""SELECT id,type FROM entities""")
+    results = cursor.fetchall()
+    conn.close()
+    inventory_list = []
+    for result in results:
+        inventory_list.append({"id": result[0], "type": result[1]})
+    return inventory_list
 
 
 def get_entity_by_topic(mqtt_topic: str):

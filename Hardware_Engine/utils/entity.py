@@ -11,6 +11,9 @@ class Entity:
         self.target_value = target_value
         self.actual_value = actual_value
 
+    def load_from_mqtt_topic(self, mqtt_topic):
+        entity_dict = dbutils.get_entity_by_topic(mqtt_topic)
+
     def delete(self):
         if not dbutils.delete_entity(self._id_):
             return False
