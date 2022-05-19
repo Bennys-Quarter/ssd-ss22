@@ -15,6 +15,9 @@ def subscribe(topics, client):
     for topic in topics:
         client.subscribe(topic)
 
+def unsubscribe(topic):
+    pass
+
 def init(mqtt_conn_params):
     client = mqtt_client.Client("HARDWARE_ENGINE")
     client.username_pw_set(mqtt_conn_params['username'], mqtt_conn_params['password'])
