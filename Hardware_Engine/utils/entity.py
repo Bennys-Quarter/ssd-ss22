@@ -15,6 +15,7 @@ class Entity:
         if not dbutils.delete_entity(self._id_):
             return False
         mqttutils.unsubscribe(self.mqtt_topic)
+        return True
 
     def register(self):
         return dbutils.insert_entity(self.to_dict())

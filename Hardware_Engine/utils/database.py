@@ -13,13 +13,23 @@ def init_db():
     conn.commit()
     conn.close()
 
+def get_topic_list():
+    conn = sqlite3.connect("entities.db")
+    cursor = conn.cursor()
+    cursor.execute("""SELECT DISTINCT mqtt_topic FROM entities""")
+    result = cursor.fetchall()
+    conn.close()
+    if result:
+        return result[0]
+    else:
+        return []
+
 def get_entity_by_id(_id_: str):
     conn = sqlite3.connect("entities.db")
     cursor = conn.cursor()
     cursor.execute("""SELECT * FROM entities where id=?""", (_id_,))
     result = cursor.fetchone()
     conn.close()
-    print(result)
     if not result:
         return {}
     return {

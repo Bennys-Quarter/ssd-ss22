@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, request, abort, current_app
-from utils import auth, schemas, configs, entity
+from utils import auth, schemas, configs, entity, database
 
 configuration = Blueprint('configuration', __name__)
 
@@ -14,24 +14,36 @@ def mqtt_config_set():
     configs.write_mqtt_config(conn_params, "./configuration.ini")
     return jsonify({"status": "OK"}), 200
 
+
 @configuration.route('/api/configuration', methods=['GET'])
 @auth.token_auth.login_required
 def mqtt_config_get():
     return jsonify(current_app.config["MQTT"]), 200
 
+
 @configuration.route('/api/configuration/register', methods=['POST'])
 @auth.token_auth.login_required
 def register_entity_():
     register_entity = request.json
-    print(register_entity)
     if not schemas.validate(register_entity, schemas.schema_register_entity):
         abort(400)
     new_entity = entity.Entity(
-        _id_= register_entity["id"],
-        mqtt_topic= register_entity["mqtt_topic"],
-        address = register_entity.get("address"),
-        _type_= register_entity["type"]
+        _id_=register_entity["id"],
+        mqtt_topic=register_entity["mqtt_topic"],
+        address=register_entity.get("address"),
+        _type_=register_entity["type"]
     )
     if not new_entity.register():
         abort(409)
+    return jsonify({"status": "OK"}), 200
+
+
+@configuration.route('/api/configuration/delete/<_id_>', methods=['DELETE'])
+@auth.token_auth.login_required
+def delete_entity_(_id_):
+    new_entity = entity.Entity(
+        _id_=_id_
+    )
+    if not new_entity.delete():
+        abort(404)
     return jsonify({"status": "OK"}), 200
