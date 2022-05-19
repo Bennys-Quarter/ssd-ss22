@@ -17,14 +17,15 @@ def init_db():
 def get_topic_list():
     conn = sqlite3.connect("entities.db")
     cursor = conn.cursor()
-    cursor.execute("""SELECT DISTINCT mqtt_topic FROM entities""")
-    result = cursor.fetchall()
+    cursor.execute("""SELECT DISTINCT mqtt_topic,type FROM entities""")
+    results = cursor.fetchall()
     conn.close()
-    if result:
-        return result[0]
-    else:
-        return []
-
+    topic_list = []
+    if not results:
+        return False
+    for result in results:
+        topic_list.append({"mqtt_topic": result[0], "type":result[1]})
+    return topic_list
 
 def get_entity_by_id(_id_: str):
     conn = sqlite3.connect("entities.db")
@@ -80,13 +81,13 @@ def update_entity(entity_dict):
     conn = sqlite3.connect("entities.db")
     cursor = conn.cursor()
     if entity_dict["target_value"]:
-        cursor.execute("UPDATE entities SET target_value=? WHERE id=? OR mqtt=?", (entity_dict["target_value"],
-                                                                                   entity_dict["id"],
-                                                                                   entity_dict["mqtt_topic"]))
+        cursor.execute("UPDATE entities SET target_value=? WHERE id=? OR mqtt_topic=?", (entity_dict["target_value"],
+                                                                                         entity_dict["id"],
+                                                                                         entity_dict["mqtt_topic"]))
     if entity_dict["actual_value"]:
-        cursor.execute("UPDATE entities SET actual_value=? WHERE id=? OR mqtt=?", (entity_dict["actual_value"],
-                                                                                   entity_dict["id"],
-                                                                                   entity_dict["mqtt_topic"]))
+        cursor.execute("UPDATE entities SET actual_value=? WHERE id=? OR mqtt_topic=?", (str(entity_dict["actual_value"]),
+                                                                                         entity_dict["id"],
+                                                                                         entity_dict["mqtt_topic"]))
     conn.commit()
     conn.close()
     return True

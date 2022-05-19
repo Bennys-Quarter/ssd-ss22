@@ -3,6 +3,7 @@ from utils import mqtt, configs, database
 
 from endpoints.configuration import configuration
 from endpoints.inventory import inventory
+from endpoints.control import control
 
 app = Flask(__name__)
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
@@ -10,6 +11,7 @@ app.config['JSON_SORT_KEYS'] = False
 
 app.register_blueprint(configuration)
 app.register_blueprint(inventory)
+app.register_blueprint(control)
 
 
 @app.errorhandler(400)

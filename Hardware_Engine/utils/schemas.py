@@ -26,7 +26,7 @@ schema_output_entity = {
     "type": "object",
     "properties": {
         "id": {"type": "string"},
-        "value": {"type": "number"},
+        "value": {"type": "string"},
     },
     "required": ["id", "value"]
 }

@@ -14,15 +14,17 @@ def on_connect(client, userdata, flags, rc):
 
 def on_message(client, userdata, msg):
     print(f"Received `{msg.payload.decode()}` from `{msg.topic}` topic")
-    update_entity = Entity(mqtt_topic=msg.topic)
-    update_entity.actual_value = msg.payload.decode()
-    update_entity.update()
+    #update_entity = Entity(mqtt_topic=msg.topic)
+    #update_entity.actual_value = msg.payload.decode()
+    #update_entity.update()
 
 
 def subscribe(client):
     topics = get_topic_list()
     for topic in topics:
-        client.subscribe(topic)
+        client.subscribe(topic["mqtt_topic"])
+        if topic["type"] == "output":
+            client.subscribe(topic["mqtt_topic"]+"_state")
 
 
 def unsubscribe(topic):

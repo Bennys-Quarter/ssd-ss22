@@ -11,8 +11,17 @@ class Entity:
         self.target_value = target_value
         self.actual_value = actual_value
 
-    def load_from_mqtt_topic(self, mqtt_topic):
-        entity_dict = dbutils.get_entity_by_topic(mqtt_topic)
+    def load_from_id(self):
+        entity_dict = dbutils.get_entity_by_id(self._id_)
+        if not entity_dict:
+            return False
+        self.mqtt_topic = entity_dict["mqtt_topic"]
+        self.address = entity_dict["address"]
+        self._type_ = entity_dict["type"]
+        self.target_value = entity_dict["target_value"]
+        self.actual_value = ["actual_value"]
+        return True
+
 
     def delete(self):
         if not dbutils.delete_entity(self._id_):
@@ -22,6 +31,7 @@ class Entity:
 
     def register(self):
         return dbutils.insert_entity(self.to_dict())
+
     def update(self):
         dbutils.update_entity(self.to_dict())
 
