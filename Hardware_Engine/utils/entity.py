@@ -19,7 +19,7 @@ class Entity:
         self.address = entity_dict["address"]
         self._type_ = entity_dict["type"]
         self.target_value = entity_dict["target_value"]
-        self.actual_value = ["actual_value"]
+        self.actual_value = entity_dict["actual_value"]
         return True
 
     def load_from_topic(self):
@@ -31,7 +31,7 @@ class Entity:
         self.address = entity_dict["address"]
         self._type_ = entity_dict["type"]
         self.target_value = entity_dict["target_value"]
-        self.actual_value = ["actual_value"]
+        self.actual_value = entity_dict["actual_value"]
         return True
 
     def get_type(self):
