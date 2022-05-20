@@ -34,6 +34,9 @@ class Entity:
         self.actual_value = ["actual_value"]
         return True
 
+    def get_type(self):
+        return self._type_
+
     def delete(self):
         if not dbutils.delete_entity(self._id_):
             return False

@@ -3,16 +3,26 @@ from utils import auth, database, schemas, entity
 
 states = Blueprint('states', __name__)
 
-@states.route('/api/control/output', methods=['POST'])
+@states.route('/api/states/sensor/<_id_>', methods=['GET'])
 @auth.token_auth.login_required
-def set_control():
-    control = request.json
-    if not schemas.validate(control, schemas.schema_output_entity):
-        abort(400)
-    new_entity = entity.Entity(_id_=control["id"])
-    if not new_entity.load_from_id():
+def get_sensor(_id_):
+    current_entity = entity.Entity(_id_=_id_)
+    if not (current_entity.load_from_id() and current_entity.get_type() != "sensor"):
         abort(404)
-    new_entity.target_value = control["value"]
-    current_app.mqtt_client.publish(new_entity.mqtt_topic, new_entity.target_value)
-    new_entity.update()
-    return jsonify({"status": "OK"}), 200
+    return jsonify(current_entity.to_dict_state()), 200
+
+@states.route('/api/states/input/<_id_>', methods=['GET'])
+@auth.token_auth.login_required
+def get_sensor(_id_):
+    current_entity = entity.Entity(_id_=_id_)
+    if not (current_entity.load_from_id() and current_entity.get_type() != "input"):
+        abort(404)
+    return jsonify(current_entity.to_dict_state()), 200
+
+@states.route('/api/states/output/<_id_>', methods=['GET'])
+@auth.token_auth.login_required
+def get_sensor(_id_):
+    current_entity = entity.Entity(_id_=_id_)
+    if not (current_entity.load_from_id() and current_entity.get_type() != "output"):
+        abort(404)
+    return jsonify(current_entity.to_dict_state()), 200
