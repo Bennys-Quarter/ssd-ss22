@@ -4,6 +4,7 @@ from utils import mqtt, configs, database
 from endpoints.configuration import configuration
 from endpoints.inventory import inventory
 from endpoints.control import control
+from endpoints.states import states
 
 app = Flask(__name__)
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
@@ -12,6 +13,7 @@ app.config['JSON_SORT_KEYS'] = False
 app.register_blueprint(configuration)
 app.register_blueprint(inventory)
 app.register_blueprint(control)
+app.register_blueprint(states)
 
 
 @app.errorhandler(400)
@@ -39,5 +41,6 @@ if __name__ == '__main__':
     app.config["MQTT"] = configs.read_mqtt_config("configuration.ini")
     mqtt_client = mqtt.init(mqtt_conn_params=app.config["MQTT"])
     app.mqtt_client = mqtt_client
+    app.mqtt_topics = database.get_topic_list()
     mqtt.loop_start(mqtt_client)
     app.run(host='127.0.0.1', threaded=True, port=8080, debug=False)

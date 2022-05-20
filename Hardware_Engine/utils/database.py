@@ -24,7 +24,14 @@ def get_topic_list():
     if not results:
         return False
     for result in results:
-        topic_list.append({"mqtt_topic": result[0], "type":result[1]})
+        topic = result[0]
+        _type_ = result[1]
+        topic_list = []
+        if _type_ == "sensor" or _type_ == "input":
+            topic_list.append({"mqtt_topic": topic, "action": "subscribe"})
+        elif _type_ == "output":
+            topic_list.append({"mqtt_topic": topic + "_state", "action": "subscribe"})
+            topic_list.append({"mqtt_topic": topic, "action": "publish"})
     return topic_list
 
 def get_entity_by_id(_id_: str):

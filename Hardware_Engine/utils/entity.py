@@ -3,7 +3,7 @@ import utils.mqtt as mqttutils
 
 
 class Entity:
-    def __init__(self, _id_: str, mqtt_topic="", address="", _type_="", target_value="", actual_value=""):
+    def __init__(self, _id_="", mqtt_topic="", address="", _type_="", target_value="", actual_value=""):
         self._id_ = _id_
         self.mqtt_topic = mqtt_topic
         self.address = address
@@ -22,6 +22,17 @@ class Entity:
         self.actual_value = ["actual_value"]
         return True
 
+    def load_from_topic(self):
+        self.mqtt_topic = self.mqtt_topic.split("_state")[0]  # Filter the output state topic
+        entity_dict = dbutils.get_entity_by_topic(self.mqtt_topic)
+        if not entity_dict:
+            return False
+        self.mqtt_topic = entity_dict["mqtt_topic"]
+        self.address = entity_dict["address"]
+        self._type_ = entity_dict["type"]
+        self.target_value = entity_dict["target_value"]
+        self.actual_value = ["actual_value"]
+        return True
 
     def delete(self):
         if not dbutils.delete_entity(self._id_):
