@@ -16,11 +16,11 @@ def on_message(client, userdata, msg):
     current_entity.load_from_topic()
     current_entity.update()
 
+
 def subscribe(client):
     for topic in get_topic_list():
         if topic["action"] == "subscribe":
             client.subscribe(topic["mqtt_topic"])
-
 
 
 def unsubscribe(topic):
@@ -28,7 +28,8 @@ def unsubscribe(topic):
 
 
 def init(mqtt_conn_params):
-    client = mqtt_client.Client("HARDWARE_ENGINE", userdata={"mqtt_topics":get_topic_list()}) # for accessing the topics in the on_message
+    client = mqtt_client.Client("HARDWARE_ENGINE", userdata={
+        "mqtt_topics": get_topic_list()})  # for accessing the topics in the on_message
     client.username_pw_set(mqtt_conn_params['username'], mqtt_conn_params['password'])
     client.on_connect = on_connect
     client.connect(mqtt_conn_params['server'], int(mqtt_conn_params['port']))

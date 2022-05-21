@@ -112,7 +112,8 @@ def delete_entity(_id_: str):
 
 
 def insert_entity(entity_dict):
-    if get_entity_by_id(entity_dict["id"]):
+    # We do not want not unique IDs and identical topics for different entities
+    if get_entity_by_id(entity_dict["id"]) or get_entity_by_topic(entity_dict["mqtt_topic"]):
         return False
     conn = sqlite3.connect("entities.db")
     cursor = conn.cursor()
