@@ -22,7 +22,7 @@ channels:
           $ref: '#/components/parameters/module_id'
         output_number:
           $ref: '#/components/parameters/output_number'
-    subscribe:
+    publish:
       message:
         $ref: '#/components/messages/set_output'
   ha-ea/module-{module_id}/outputs/K{output_number}_state:
@@ -31,7 +31,7 @@ channels:
           $ref: '#/components/parameters/module_id'
         output_number:
           $ref: '#/components/parameters/output_number'
-    publish:
+    subscribe:
       message:
         $ref: '#/components/messages/set_output'
   ha-ea/module-{module_id}/outputs/I{input_number}:
@@ -40,14 +40,14 @@ channels:
           $ref: '#/components/parameters/module_id'
         input_number:
           $ref: '#/components/parameters/input_number'
-    publish:
+    subscribe:
       message:
         $ref: '#/components/messages/get_input'
   ha-ea/module-{module_id}/bus/sensors:
     parameters:
         module_id:
           $ref: '#/components/parameters/module_id'
-    publish:
+    subscribe:
       message:
         $ref: '#/components/messages/sensor_object'
 
