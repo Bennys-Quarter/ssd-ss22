@@ -12,9 +12,9 @@ def on_connect(client, userdata, flags, rc):
 
 def on_message(client, userdata, msg):
     print(f"Received `{msg.payload.decode()}` from `{msg.topic}` topic")
-    current_entity = Entity(mqtt_topic=msg.topic, actual_value=msg.payload.decode())
+    current_entity = Entity(mqtt_topic=msg.topic)
     current_entity.load_from_topic()
-    current_entity.update()
+    current_entity.update(actual_value=msg.payload.decode())
 
 
 def subscribe(client):

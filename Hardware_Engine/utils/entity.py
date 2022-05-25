@@ -19,8 +19,7 @@ class Entity:
         self.address = entity_dict["address"]
         self._type_ = entity_dict["type"]
         self.target_value = entity_dict["target_value"]
-        if not self.actual_value:
-            self.actual_value = entity_dict["actual_value"]
+        self.actual_value = entity_dict["actual_value"]
         return True
 
     def load_from_topic(self):
@@ -28,12 +27,12 @@ class Entity:
         entity_dict = dbutils.get_entity_by_topic(self.mqtt_topic)
         if not entity_dict:
             return False
+        self._id_ = entity_dict["id"]
         self.mqtt_topic = entity_dict["mqtt_topic"]
         self.address = entity_dict["address"]
         self._type_ = entity_dict["type"]
         self.target_value = entity_dict["target_value"]
-        if not self.actual_value:
-            self.actual_value = entity_dict["actual_value"]
+        self.actual_value = entity_dict["actual_value"]
         return True
 
     def get_type(self):
@@ -48,8 +47,11 @@ class Entity:
     def register(self):
         return dbutils.insert_entity(self.to_dict())
 
-    def update(self):
-        dbutils.update_entity(self.to_dict())
+    def update(self, actual_value):
+        self.actual_value = actual_value
+        entity_dict = self.to_dict()
+        print(entity_dict)
+        dbutils.update_entity(entity_dict=entity_dict)
 
     def to_dict(self):
         return {

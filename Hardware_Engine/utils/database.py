@@ -87,6 +87,7 @@ def update_entity(entity_dict):
         return False
     conn = sqlite3.connect("entities.db")
     cursor = conn.cursor()
+    #print(entity_dict)
     if entity_dict["target_value"]:
         cursor.execute("UPDATE entities SET target_value=? WHERE id=?", (entity_dict["target_value"],
                                                                          entity_dict["id"]))
