@@ -13,6 +13,7 @@ def set_control():
     if not new_entity.load_from_id():
         abort(404)
     new_entity.target_value = control["value"]
+    print(new_entity.mqtt_topic)
     current_app.mqtt_client.publish(new_entity.mqtt_topic, new_entity.target_value)
     new_entity.update()
     return jsonify({"status": "OK"}), 200

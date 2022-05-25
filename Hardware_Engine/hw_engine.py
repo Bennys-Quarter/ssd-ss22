@@ -41,6 +41,5 @@ if __name__ == '__main__':
     app.config["MQTT"] = configs.read_mqtt_config("configuration.ini")
     mqtt_client = mqtt.init(mqtt_conn_params=app.config["MQTT"])
     app.mqtt_client = mqtt_client
-    app.mqtt_topics = database.get_topic_list()
     mqtt.loop_start(mqtt_client)
     app.run(host='127.0.0.1', threaded=True, port=8080, debug=False)

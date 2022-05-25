@@ -19,7 +19,8 @@ class Entity:
         self.address = entity_dict["address"]
         self._type_ = entity_dict["type"]
         self.target_value = entity_dict["target_value"]
-        self.actual_value = entity_dict["actual_value"]
+        if not self.actual_value:
+            self.actual_value = entity_dict["actual_value"]
         return True
 
     def load_from_topic(self):
@@ -31,7 +32,8 @@ class Entity:
         self.address = entity_dict["address"]
         self._type_ = entity_dict["type"]
         self.target_value = entity_dict["target_value"]
-        self.actual_value = entity_dict["actual_value"]
+        if not self.actual_value:
+            self.actual_value = entity_dict["actual_value"]
         return True
 
     def get_type(self):
@@ -60,14 +62,8 @@ class Entity:
         }
 
     def to_dict_state(self):
-        if self._type_ == "sensor":
-            return {
-                "id": self._id_,
-                "address": self.address,
-                "value": self.actual_value
-            }
-        else:
-            return {
-                "id": self._id_,
-                "value": self.actual_value
-            }
+        return {
+            "id": self._id_,
+            "address": self.address,
+            "value": self.actual_value
+        }

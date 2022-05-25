@@ -34,6 +34,7 @@ def get_topic_list():
             topic_list.append({"mqtt_topic": topic, "action": "publish"})
     return topic_list
 
+
 def get_entity_by_id(_id_: str):
     conn = sqlite3.connect("entities.db")
     cursor = conn.cursor()
@@ -47,8 +48,8 @@ def get_entity_by_id(_id_: str):
         "mqtt_topic": result[1],
         "address": result[2],
         "type": result[3],
-        "target_value": result[3],
-        "actual_value": result[4]
+        "target_value": result[4],
+        "actual_value": result[5]
     }
 
 
@@ -88,13 +89,12 @@ def update_entity(entity_dict):
     conn = sqlite3.connect("entities.db")
     cursor = conn.cursor()
     if entity_dict["target_value"]:
-        cursor.execute("UPDATE entities SET target_value=? WHERE id=? OR mqtt_topic=?", (entity_dict["target_value"],
-                                                                                         entity_dict["id"],
-                                                                                         entity_dict["mqtt_topic"]))
+        cursor.execute("UPDATE entities SET target_value=? WHERE id=?", (entity_dict["target_value"],
+                                                                         entity_dict["id"]))
     if entity_dict["actual_value"]:
-        cursor.execute("UPDATE entities SET actual_value=? WHERE id=? OR mqtt_topic=?", (str(entity_dict["actual_value"]),
-                                                                                         entity_dict["id"],
-                                                                                         entity_dict["mqtt_topic"]))
+        cursor.execute("UPDATE entities SET actual_value=? WHERE id=?",
+                       (str(entity_dict["actual_value"]),
+                        entity_dict["id"]))
     conn.commit()
     conn.close()
     return True

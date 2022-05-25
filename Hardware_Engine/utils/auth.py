@@ -1,7 +1,7 @@
 from flask_httpauth import HTTPTokenAuth
 
 tokens = {
-    "token1": "user1",
+    "jhQcOHRI3bFlBniEaPc7": "user1",
     "token2": "user2"
 }
 
