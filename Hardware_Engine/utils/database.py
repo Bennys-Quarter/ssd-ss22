@@ -26,7 +26,6 @@ def get_topic_list():
     for result in results:
         topic = result[0]
         _type_ = result[1]
-        topic_list = []
         if _type_ == "sensor" or _type_ == "input":
             topic_list.append({"mqtt_topic": topic, "action": "subscribe"})
         elif _type_ == "output":
