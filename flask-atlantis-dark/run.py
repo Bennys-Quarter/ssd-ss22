@@ -50,9 +50,10 @@ if __name__ == "__main__":
     app.run(debug=True)
 
 
-#TODO: Make the line chart take data
+
 #TODO: Make the Color choice functional agian
-#TODO: Define the tabel visualy according to the database entries
+#DONE: Define the tabel visualy according to the database entries
 #DONE: Define a Model for the history table
 #DONE: Delet uneccessary icons in app
 #DONE: Make the Weather Card better
+#DONE: Make the line chart take data
