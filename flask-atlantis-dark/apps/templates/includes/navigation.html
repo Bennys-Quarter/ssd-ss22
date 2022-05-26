@@ -25,7 +25,9 @@
 			<nav class="navbar navbar-header navbar-expand-lg" data-background-color="dark">
 				
 				{% if current_user.is_authenticated %}
+
 				<div class="container-fluid">
+					<!--
 					<div class="collapse" id="search-nav">
 						<form class="navbar-left navbar-form nav-search mr-md-3">
 							<div class="input-group">
@@ -38,12 +40,14 @@
 							</div>
 						</form>
 					</div>
+					-->
 					<ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
 						<li class="nav-item toggle-nav-search hidden-caret">
 							<a class="nav-link" data-toggle="collapse" href="#search-nav" role="button" aria-expanded="false" aria-controls="search-nav">
 								<i class="fa fa-search"></i>
 							</a>
 						</li>
+						<!--
 						<li class="nav-item dropdown hidden-caret">
 							<a class="nav-link dropdown-toggle" href="#" id="messageDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 								<i class="fa fa-envelope"></i>
@@ -114,6 +118,8 @@
 								</li>
 							</ul>
 						</li>
+						-->
+						<!--
 						<li class="nav-item dropdown hidden-caret">
 							<a class="nav-link dropdown-toggle" href="#" id="notifDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 								<i class="fa fa-bell"></i>
@@ -172,6 +178,8 @@
 								</li>
 							</ul>
 						</li>
+						-->
+						<!--
 						<li class="nav-item dropdown hidden-caret">
 							<a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="false">
 								<i class="fas fa-layer-group"></i>
@@ -225,6 +233,7 @@
 								</div>
 							</div>
 						</li>
+						-->
 						<li class="nav-item dropdown hidden-caret">
 							<a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#" aria-expanded="false">
 								<div class="avatar-sm">
@@ -240,21 +249,25 @@
 												<h4>
 													{{ current_user.username }}
 												</h4>
+												<!--
 												<p class="text-muted">
 													{{ current_user.email }}
 												</p>
 												<a href="#" class="btn btn-xs btn-secondary btn-sm">View Profile</a>
+												-->
 											</div>
 										</div>
 									</li>
 									<li>
 										<div class="dropdown-divider"></div>
+										<!--
 										<a class="dropdown-item" href="#">My Profile</a>
 										<a class="dropdown-item" href="#">My Balance</a>
 										<a class="dropdown-item" href="#">Inbox</a>
 										<div class="dropdown-divider"></div>
 										<a class="dropdown-item" href="#">Account Setting</a>
 										<div class="dropdown-divider"></div>
+										-->
 										<a class="dropdown-item" href="{{ url_for('authentication_blueprint.logout') }}">Logout</a>
 									</li>
 								</div>

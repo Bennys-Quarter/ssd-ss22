@@ -16,3 +16,11 @@ class Weather(db.Model, UserMixin):
     weather_condition = db.Column(db.String(64))
 
 
+class History(db.Model, UserMixin):
+
+    __tablename__ = 'History'
+
+    id = db.Column(db.Integer, primary_key=True)
+    timestamp = db.Column(db.String(64))
+    actuator_state = db.Column(db.String(8))
+    temperature = db.Column(db.String(64))
