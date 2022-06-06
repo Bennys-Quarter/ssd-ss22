@@ -14,7 +14,6 @@ def getInventory():  # ToDo yaml file does not match
 def getHistoryByID():  # ToDo: look in db
     pass
 
-
 # https://www.weatherapi.com/my/
 # plu79815@zcrcd.com
 # 1234asdf

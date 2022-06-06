@@ -4,8 +4,6 @@ import threading
 import pause
 from datetime import datetime
 
-pause.until(datetime(2015, 8, 12, 2))
-
 headers = {"Authorization": "Bearer jhQcOHRI3bFlBniEaPc7"}
 found_in_db = True
 
