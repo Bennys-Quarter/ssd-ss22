@@ -10,6 +10,7 @@ from importlib import import_module
 
 import connexion
 
+
 db = SQLAlchemy()
 login_manager = LoginManager()
 
@@ -38,7 +39,8 @@ def configure_database(app):
 
 def create_app(config):
     app = connexion.App(__name__, specification_dir='../api')
-    app.add_api('Bennys-Quarter-UserAPI-1.0.0-swagger.yaml')
+    #app.add_api('Bennys-Quarter-UserAPI-1.0.0-swagger.yaml')
+    app.add_api('User-API.yaml', base_path="/api")
     app.app.config.from_object(config)
     register_extensions(app.app)
     register_blueprints(app.app)

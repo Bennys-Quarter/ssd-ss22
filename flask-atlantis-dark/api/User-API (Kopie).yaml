@@ -1,0 +1,345 @@
+openapi: 3.0.0
+info:
+  title: User API
+  description: |
+    User API - Smart Home
+  version: 1.0.0
+servers:
+- url: https://virtserver.swaggerhub.com/ssssss27/UserAPI/1.0.0
+  description: SwaggerHub API Auto Mocking
+tags:
+- name: sensor
+  description: All about sensors
+- name: actor
+  description: All about switches
+- name: functions
+  description: Operations
+- name: user
+  description: Operations about user
+
+basePath: "/api"
+
+paths:
+  /function/inventory:
+    get:
+      operationId: "api.function.getInventory"
+      tags:
+      - functions
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Inventory'
+  /function/history/{id}:
+    get:
+      operationId: "api.function.getHistoryByID"
+      tags:
+      - functions
+      parameters:
+      - name: id
+        in: path
+        description: ID of IO
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: startTime
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          format: date-time
+      - name: endTime
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          format: date-time
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SensorHistory'
+        "400":
+          description: Invalid ID supplied / wrong time interval
+        "404":
+          description: Sensor not found
+  /function/weather:
+    get:
+      operationId: "api.function.getWeather"
+      tags:
+      - functions
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WeatherData'
+        "404":
+          description: No weather data available
+  /state/{id}:
+    get:
+      operationId: "api.state.getStateByID"
+      tags:
+      - sensor
+      parameters:
+      - name: id
+        in: path
+        description: ID of IO
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SensorData'
+        "400":
+          description: Invalid ID supplied
+        "404":
+          description: IO not found
+  /actor/{id}:
+    get:
+      operationId: "api.actor.getActorStateByID"
+      tags:
+      - actor
+      summary: Get the state current switch sate of the actor
+      parameters:
+      - name: id
+        in: path
+        description: ID of Actuator
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Actor'
+        "400":
+          description: Invalid ID supplied
+        "404":
+          description: Actuator not found
+  /actor/{id}/{state}:
+    put:
+      operationId: "api.actor.setStateByID"
+      tags:
+      - actor
+      summary: Change the state of actor
+      parameters:
+      - name: id
+        in: path
+        description: ID of Actuator
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: state
+        in: path
+        description: State of Actuator
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: boolean
+      responses:
+        "200":
+          description: successfully set state
+        "500":
+          description: state operation not successful
+        "404":
+          description: id not found
+  /actor/{id}/time:
+    put:
+      operationId: "api.actor.setTimerByID"
+      tags:
+      - actor
+      summary: Set a switch time for an actor
+      parameters:
+      - name: id
+        in: path
+        description: ID of Actuator
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: time
+        in: query
+        description: set datime to switch actuator
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: Successfully set timer
+        "404":
+          description: ID not found
+  /user/login:
+    get:
+      operationId: "api.user.login"
+      tags:
+      - user
+      summary: Logs user into the system
+      parameters:
+      - name: username
+        in: query
+        description: The user name for login
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: password
+        in: query
+        description: The password for login in clear text
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: successful operation
+          headers:
+            X-Rate-Limit:
+              description: calls per hour allowed by the user
+              style: simple
+              explode: false
+              schema:
+                type: integer
+                format: int32
+            X-Expires-After:
+              description: date in UTC when token expires
+              style: simple
+              explode: false
+              schema:
+                type: string
+                format: date-time
+          content:
+            application/json:
+              schema:
+                type: string
+        "400":
+          description: Invalid username/password supplied
+  /user/logout:
+    get:
+      operationId: "api.user.logout"
+      tags:
+      - user
+      summary: Logs out current logged in user session
+      responses:
+        default:
+          description: successful operation
+components:
+  schemas:
+    SensorData:
+      description: successful operation
+      type: object
+      properties:
+        id:
+          type: string
+        value:
+          type: number
+          format: float
+    Inventory:
+      type: array
+      items:
+        $ref: '#/components/schemas/SensorData'
+    SensorHistory:
+      description: successful operation
+      type: object
+      properties:
+        id:
+          type: string
+        History:
+          type: array
+          items:
+            $ref: '#/components/schemas/SensorHistory_History'
+    WeatherData:
+      description: successful operation
+      type: object
+      properties:
+        last_updated:
+          type: string
+          description: Local time when the real time data was updated.
+          format: date-time
+        temp_c:
+          type: number
+          description: Temperature in celsius
+          format: float
+        feelslike_c:
+          type: number
+          description: Feels like temperature in celsius
+          format: float
+        condition_text:
+          type: string
+          description: Weather condition text
+        wind_kph:
+          type: number
+          description: Wind speed in kilometer per hour
+          format: float
+        wind_degree:
+          type: integer
+          description: Wind direction in degrees
+          format: int32
+        pressure_mb:
+          type: number
+          description: Pressure in millibars
+          format: float
+        precip_mm:
+          type: number
+          description: Precipitation amount in millimeters
+          format: float
+        humidity:
+          maximum: 100
+          minimum: 1
+          type: integer
+          description: Humidity as percentage
+        cloud:
+          maximum: 100
+          minimum: 1
+          type: integer
+          description: Cloud cover as percentage
+    Actor:
+      description: successful operation
+      required:
+      - id
+      type: object
+      properties:
+        id:
+          type: string
+        status:
+          type: boolean
+    SensorHistory_History:
+      description: successful operation
+      type: object
+      properties:
+        time:
+          type: string
+          format: date-time
+        value:
+          type: number
+          format: float
+      example: null
