@@ -18,6 +18,10 @@ class Weather(db.Model, UserMixin):
 
 class History(db.Model, UserMixin):
 
+    def __iter__(self):
+        for attr, value in self.__dict__.iteritems():
+            yield attr, value
+
     __tablename__ = 'History'
 
     id = db.Column(db.Integer, primary_key=True)

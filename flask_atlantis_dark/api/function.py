@@ -1,8 +1,9 @@
 import json
 import requests
 from flask_atlantis_dark.apps.home.models import Weather, History
-from apps import db
+from flask_atlantis_dark.apps import db
 import datetime
+from flask import jsonify
 
 api_key = "HUHJZKRNLZMHZXRLMKCHF5AT3"
 base_url = "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/"
@@ -11,7 +12,7 @@ headers = {'content-type': 'application/json',
            "Authorization": "Bearer jhQcOHRI3bFlBniEaPc7"
            }
 
-def getInventory():  # ToDo yaml file does not match
+def getInventory():
     r = requests.get('http://213.47.49.66:48080/api/inventory', headers=headers)
     if r.status_code == 200:
         timestamp = str(datetime.datetime.now())
@@ -31,8 +32,23 @@ def getInventory():  # ToDo yaml file does not match
     return "No inventory available, please check connection", 404
 
 
-def getHistoryByID():
-    return "ToDo: look in db"
+def getHistoryByID(id):
+    if id == "all":
+        entries = History.query.all()
+    else:
+        entries = History.query.filter_by(id_name=f"{id}").all()
+
+    history = []
+    for entry in entries:
+        dictionary = entry.__dict__
+        del dictionary['_sa_instance_state']
+        history.append(dictionary)
+
+    if history:
+        return jsonify(history), 200
+
+    return "requested id not found", 404
+
 
 # https://www.weatherapi.com/my/
 # plu79815@zcrcd.com
