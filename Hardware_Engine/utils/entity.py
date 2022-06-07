@@ -50,7 +50,6 @@ class Entity:
     def update(self, actual_value):
         self.actual_value = actual_value
         entity_dict = self.to_dict()
-        print(entity_dict)
         dbutils.update_entity(entity_dict=entity_dict)
 
     def to_dict(self):
