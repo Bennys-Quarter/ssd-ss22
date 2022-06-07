@@ -10,6 +10,7 @@ found_in_db = True
 def getActorStateByID(id): # ToDo: really needed? Same function as state/{id}
     pass
 
+
 def setStateByID(id, state): # ToDo: check switch is in db
     if found_in_db:
         payload = {"id": id, "value": state}
@@ -21,6 +22,7 @@ def setStateByID(id, state): # ToDo: check switch is in db
 
     return "id not found", 404
 
+
 def timer(id, unix_time, state):
     payload = {"id": id, "value": state}
     pause.until(datetime.fromtimestamp(unix_time))
@@ -28,6 +30,7 @@ def timer(id, unix_time, state):
     r = requests.post('http://213.47.49.66:48080/api/control/output', headers=headers, data=json.dumps(payload))
     if r.status_code != 200:
         print("Error IO not setable")
+
 
 def setTimerByID(id, time, state):
     if found_in_db: # ToDo: check id exists

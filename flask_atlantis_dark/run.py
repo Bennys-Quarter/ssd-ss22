@@ -21,9 +21,7 @@ DEBUG = config('DEBUG', default=True, cast=bool)
 get_config_mode = 'Debug' if DEBUG else 'Production'
 
 
-
 try:
-
     # Load the configuration using the default values
     app_config = config_dict[get_config_mode.capitalize()]
 
@@ -64,16 +62,12 @@ def updateSensorData():
         print(r.json())
         # ToDo: save in db
 
+
 if __name__ == "__main__":
     scheduler.add_job(func=updateSensorData, trigger="interval", seconds=5)
-    scheduler.start()
+    #scheduler.start()
 
     app.run(debug=True, use_reloader=False)
 
 
-#TODO: Make the Color choice functional agian
-#DONE: Define the tabel visualy according to the database entries
-#DONE: Define a Model for the history table
-#DONE: Delet uneccessary icons in app
-#DONE: Make the Weather Card better
-#DONE: Make the line chart take data
+#TODO: Make the Color choice functional again or remove it

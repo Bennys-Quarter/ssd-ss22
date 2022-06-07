@@ -30,7 +30,7 @@ Open-source **[Flask Dashboard](https://appseed.us/admin-dashboards/flask)** gen
 
 ```bash
 $ git clone https://github.com/app-generator/flask-atlantis-dark.git
-$ cd flask-atlantis-dark
+$ cd flask_atlantis_dark
 ```
 
 > Start the app in Docker
@@ -52,7 +52,7 @@ Visit `http://localhost:85` in your browser. The app should be up & running.
 ```bash
 $ # Get the code
 $ git clone https://github.com/app-generator/flask-atlantis-dark.git
-$ cd flask-atlantis-dark
+$ cd flask_atlantis_dark
 $
 $ # Virtualenv modules installation (Unix based systems)
 $ virtualenv env
@@ -225,7 +225,7 @@ Steps to deploy on **Heroku**
 ```bash
 $ # Clone the source code:
 $ git clone https://github.com/app-generator/flask-atlantis-dark.git
-$ cd flask-atlantis-dark
+$ cd flask_atlantis_dark
 $
 $ # Check Heroku CLI is installed
 $ heroku -v

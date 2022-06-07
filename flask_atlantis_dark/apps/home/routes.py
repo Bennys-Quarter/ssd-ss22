@@ -3,9 +3,10 @@
 Copyright (c) 2019 - present AppSeed.us
 """
 
-from apps import db
-from apps.home import blueprint
-from apps.home.models import Weather, History
+from flask_atlantis_dark.apps import db
+from flask_atlantis_dark.apps.home import blueprint
+from flask_atlantis_dark.apps.home.models import History, Weather
+from flask_atlantis_dark.api.function import get_weather
 from flask import render_template, request
 from flask_login import login_required
 from jinja2 import TemplateNotFound
@@ -25,7 +26,7 @@ def clear_data(session):
     session.commit()
 
 
-def weather_request():
+#def weather_request():
     # complete_url = base_url + "Graz" + "?unitGroup=metric&key=" + api_key + "&contentType=json"
     # weather_data = requests.get(complete_url).json()
     # main = weather_data["currentConditions"]
@@ -44,19 +45,19 @@ def weather_request():
     # db.session.add(new_entry)
     # db.session.commit()
 
-    entries = Weather.query.order_by(Weather.id.desc())
-    last_entry = entries.first()
+    #entries = Weather.query.order_by(Weather.id.desc())
+    #last_entry = entries.first()
 
-    print(" Temperature (in celsius unit) = " +
-          str(last_entry.temperature) +
-          "\n windspeed (in m/s) = " +
-          str(last_entry.windspeed) +
-          "\n humidity (in percentage) = " +
-          str(last_entry.humidity) +
-          "\n description = " +
-          str(last_entry.weather_description))
-
-    return last_entry
+    # print(" Temperature (in celsius unit) = " +
+    #       str(last_entry.temperature) +
+    #       "\n windspeed (in m/s) = " +
+    #       str(last_entry.windspeed) +
+    #       "\n humidity (in percentage) = " +
+    #       str(last_entry.humidity) +
+    #       "\n description = " +
+    #       str(last_entry.weather_description))
+    #
+    # return last_entry
 
 
 def darw_temp_plot():
@@ -79,7 +80,6 @@ def darw_temp_plot():
         temp_number.append(length)
         length += 1
 
-
     return temp_values, temp_number, history
 
 
@@ -87,7 +87,7 @@ def darw_temp_plot():
 @login_required
 def index():
     #Weather.query.delete()  # Delete this line to make entries permanent
-    weather_data = weather_request()
+    weather_data, _response_code = get_weather()
     tempdata, length, history = darw_temp_plot()
     return render_template('home/index.html', segment='index', weather_data=weather_data, tempdata=tempdata,
                            length=length, history=history)
