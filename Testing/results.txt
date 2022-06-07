@@ -1,0 +1,18 @@
+######### Hardware engine state 200 tests #########
+success -> inventory
+success -> states/output
+success -> states/sensor
+success -> states/input
+success -> control/output
+
+######## Hardware engine state error tests ########
+success -> inventory unauthorized access
+success -> states/output Entity does not exist
+success -> states/output unauthorized access
+success -> states/sensor unauthorized access
+success -> states/sensor Entity does not exist
+success -> states/input unauthorized access
+success -> states/input Entity does not exist
+success -> control/output unauthorized access
+success -> control/output Invalid request
+success -> control/output Entity does not exist
