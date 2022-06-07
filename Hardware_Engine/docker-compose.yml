@@ -1,0 +1,10 @@
+version: "3.7"
+ 
+services:
+  hw_engine:
+    build:
+      context: ./
+    volumes:
+      - ./databases:/app/databases:Z
+    ports:
+      - 8080:8080/tcp  

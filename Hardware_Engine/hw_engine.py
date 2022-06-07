@@ -42,4 +42,4 @@ if __name__ == '__main__':
     mqtt_client = mqtt.init(mqtt_conn_params=app.config["MQTT"])
     app.mqtt_client = mqtt_client
     mqtt.loop_start(mqtt_client)
-    app.run(host='127.0.0.1', threaded=True, port=8080, debug=False)
+    app.run(host='0.0.0.0', threaded=True, port=8080, debug=False)
