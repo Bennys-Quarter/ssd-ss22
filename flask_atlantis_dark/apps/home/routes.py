@@ -87,7 +87,12 @@ def darw_temp_plot():
 @login_required
 def index():
     #Weather.query.delete()  # Delete this line to make entries permanent
-    weather_data, _response_code = get_weather()
+    _weather_data_json, _response_code = get_weather()
+
+    entries = Weather.query.order_by(Weather.id.desc())
+    weather_data = entries.first()
+
+
     tempdata, length, history = darw_temp_plot()
     return render_template('home/index.html', segment='index', weather_data=weather_data, tempdata=tempdata,
                            length=length, history=history)

@@ -73,7 +73,7 @@ paths:
           description: Sensor not found
   /function/weather:
     get:
-      operationId: api.function.getWeather
+      operationId: api.function.get_weather
       tags:
       - functions
       responses:

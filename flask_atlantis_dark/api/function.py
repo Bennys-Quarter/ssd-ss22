@@ -58,6 +58,6 @@ def get_weather():
               "\n description = " +
               str(last_entry.weather_description))
 
-        return last_entry , 200
+        return weather_data, 200
 
     return "No weather data available", 404
