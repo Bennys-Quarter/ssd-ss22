@@ -26,46 +26,13 @@ def clear_data(session):
     session.commit()
 
 
-#def weather_request():
-    # complete_url = base_url + "Graz" + "?unitGroup=metric&key=" + api_key + "&contentType=json"
-    # weather_data = requests.get(complete_url).json()
-    # main = weather_data["currentConditions"]
-    #
-    # temperature = main["temp"]
-    # windspeed = main["windspeed"]
-    # humidity = main["humidity"]
-    # weather_description = weather_data["description"]
-    # weather_condition = main["conditions"]
-    # icon = main["icon"]
-    #
-    # if not windspeed == "None": windspeed = str(0.1)
-    #
-    # new_entry = Weather(temperature=temperature, windspeed=windspeed, humidity=humidity,
-    #                     weather_description=weather_description, icon=icon, weather_condition=weather_condition)
-    # db.session.add(new_entry)
-    # db.session.commit()
-
-    #entries = Weather.query.order_by(Weather.id.desc())
-    #last_entry = entries.first()
-
-    # print(" Temperature (in celsius unit) = " +
-    #       str(last_entry.temperature) +
-    #       "\n windspeed (in m/s) = " +
-    #       str(last_entry.windspeed) +
-    #       "\n humidity (in percentage) = " +
-    #       str(last_entry.humidity) +
-    #       "\n description = " +
-    #       str(last_entry.weather_description))
-    #
-    # return last_entry
-
-
 def darw_temp_plot():
     timestamp = str(datetime.datetime.now())
     timestamp = timestamp[:-7]
     temperature = "0"
+    info = "temperature update"
     new_entry = History(timestamp=timestamp, actuator_state='00000000',
-                        temperature=temperature)  # For testing only remove in deployment! This information should be gathered from the hardware engine
+                        data=temperature, info=info)  # For testing only remove in deployment! This information should be gathered from the hardware engine
     db.session.add(new_entry)
     db.session.commit()
 
