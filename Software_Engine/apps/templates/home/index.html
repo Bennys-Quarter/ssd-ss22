@@ -183,9 +183,11 @@
 	  Plotly.plot('chart',graphs,{}, config);
 	</script>
 	<script type='text/javascript'>
+	var x_values = [];
+
 	var trace1 = {
 	  type: 'scatter',
-	  x: {{length}},
+	  x: {{temp_number | safe}},
 	  y: {{tempdata}},
 	  name: 'Temperature',
 	  marker: {
@@ -213,8 +215,8 @@
     	t: 25,
     	pad: 4
   		},
-	  xaxis: {tickvals:[0,5,10,15],
-	  		  ticktext: ['{{temp_time[0]}}','{{temp_time[1]}}','{{temp_time[2]}}','{{temp_time[3]}}']
+	  xaxis: {tickvals:['{{temp_time[0]}}','{{temp_time[1]}}','{{temp_time[2]}}','{{temp_time[3]}}' ],
+	  		  ticktext: ['{{temp_time[0]}}','{{temp_time[1]}}','{{temp_time[2]}}','{{temp_time[3]}}' ]
 	  			}
 
 	};

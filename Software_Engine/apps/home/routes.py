@@ -10,7 +10,7 @@ from apps.api.function import get_weather
 from flask import render_template, request
 from flask_login import login_required
 from jinja2 import TemplateNotFound
-import datetime
+import json
 
 api_key = "HUHJZKRNLZMHZXRLMKCHF5AT3"
 base_url = "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/"
@@ -35,7 +35,7 @@ def darw_temp_plot():
     for en in sensor_data:
         if en.data:
             temp_values.append(round(float(en.data), 1))
-            temp_number.append(length)
+            temp_number.append(en.timestamp[-8:])
             if length == 0:
                 temp_time.append(en.timestamp[-8:])
             if length == 4:
@@ -51,8 +51,9 @@ def darw_temp_plot():
             temp_time.append("")
     print(temp_time)
     history = History.query.all()
-
-    return temp_values, temp_number, temp_time, history,
+    print(temp_number)
+    print(length)
+    return temp_values, temp_number, temp_time, length, history,
 
 
 @blueprint.route('/index')
@@ -64,10 +65,10 @@ def index():
     entries = Weather.query.order_by(Weather.id.desc())
     weather_data = entries.first()
 
-    tempdata, length, temp_time, history = darw_temp_plot()
+    tempdata, temp_number, temp_time,length, history = darw_temp_plot()
     print(tempdata)
     return render_template('home/index.html', segment='index', weather_data=weather_data, tempdata=tempdata,
-                           length=length, temp_time=temp_time, history=history, )
+                           temp_number=json.dumps(temp_number), temp_time=temp_time, history=history, length=length)
 
 
 @blueprint.route('/<template>')
