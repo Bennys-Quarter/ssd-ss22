@@ -107,7 +107,6 @@ def logout():
 
 @login_manager.unauthorized_handler
 def unauthorized_handler():
-    print(request.blueprint)
     if 'api' in request.blueprint:
         abort(HTTPStatus.UNAUTHORIZED)
     return render_template('home/page-403.html'), 403

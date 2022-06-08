@@ -1,24 +1,26 @@
 import requests
 from flask import jsonify
 from flask_login import login_required
+from flask_atlantis_dark.apps.home.models import History
+from flask_atlantis_dark.apps import db
 
 headers = {"Authorization": "Bearer jhQcOHRI3bFlBniEaPc7"}
 
-# ToDo: Placeholder remove me with real data
-type_IO = "sensor"
-name_IO = "test-sensor"
-found_in_db = True
-
 
 @login_required
-def getStateByID(id):  # ToDo: find type and name in db
+def getStateByID(id):
 
+    entry = History.query.filter_by(id_name=id).first()
 
-
-    if found_in_db:
+    if entry:
+        type_IO = entry.type
+        name_IO = entry.id_name
         url = "http://213.47.49.66:48080/api/states/" + type_IO + "/" + name_IO
         r = requests.get(url=url, headers=headers)
-        # ToDo: store new data in db with timestamp
-        return jsonify({"id": id, "value": r.json()["value"]}), 200
+        new_entry = History(id_name=name_IO, type=type_IO, data=r.json()["value"])
+        db.session.add(new_entry)
+        db.session.commit()
 
-    return 'IO device not found', 404
+        return jsonify({"id": id, "value": r.json()["value"], "type": entry.type}), 200
+
+    return 'IO device not found. Try to get the inventory first: ../api/function/inventory', 404
