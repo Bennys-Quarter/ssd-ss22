@@ -4,19 +4,19 @@ import threading
 import pause
 from datetime import datetime
 from flask_login import login_required
+from flask import current_app
 
 headers = {"Authorization": "Bearer jhQcOHRI3bFlBniEaPc7"}
-found_in_db = True
+headers2 = {'content-type': 'application/json',
+           "Authorization": "Bearer jhQcOHRI3bFlBniEaPc7"
+           }
+
 
 @login_required
-def getActorStateByID(id): # ToDo: really needed? Same function as state/{id}
-    pass
-
-@login_required
-def setStateByID(id, state): # ToDo: check switch is in db
-    if found_in_db:
-        payload = {"id": id, "value": state}
-        r = requests.post('http://213.47.49.66:48080/api/control/output', headers=headers, data=json.dumps(payload))
+def setStateByID(id, state):
+    if find_ID(id):
+        payload = {"id": id, "value": str(state)}
+        r = requests.post('http://213.47.49.66:48080/api/control/output', headers=headers2, data=json.dumps(payload))
         if r.status_code == 200:
             return "successfully set state", 200
         else:
@@ -27,8 +27,7 @@ def setStateByID(id, state): # ToDo: check switch is in db
 
 @login_required
 def setTimerByID(id, time, state):
-
-    if found_in_db: # ToDo: check id exists
+    if find_ID(id):
         t = threading.Thread(target=timer, args=(id, time, state,), daemon=True)
         t.start()
         return "Successfully set timer", 200
@@ -43,3 +42,10 @@ def timer(id, unix_time, state):
     r = requests.post('http://213.47.49.66:48080/api/control/output', headers=headers, data=json.dumps(payload))
     if r.status_code != 200:
         print("Error IO not setable")
+
+
+def find_ID(id):
+    for io in current_app.config["inventory"]:
+        if io["id"] == id and io["type"] == "output":
+            return True
+    return False

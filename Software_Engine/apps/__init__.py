@@ -9,6 +9,7 @@ from flask_sqlalchemy import SQLAlchemy
 from importlib import import_module
 
 import connexion
+import requests
 
 
 db = SQLAlchemy()
@@ -36,6 +37,9 @@ def configure_database(app):
     def shutdown_session(exception=None):
         db.session.remove()
 
+headers = {'content-type': 'application/json',
+           "Authorization": "Bearer jhQcOHRI3bFlBniEaPc7"
+           }
 
 def create_app(config):
     app = connexion.App(__name__, specification_dir='api')
@@ -44,4 +48,13 @@ def create_app(config):
     register_extensions(app.app)
     register_blueprints(app.app)
     configure_database(app.app)
+
+    r = requests.get('http://213.47.49.66:48080/api/inventory', headers=headers)
+    app.app.config["inventory"] = r.json()
+    sensors = []
+    for io in r.json():
+        if io["type"] == "sensor":
+            sensors.append(io["id"])
+    app.app.config["sensors"] = sensors
+
     return app

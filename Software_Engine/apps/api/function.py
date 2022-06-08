@@ -18,17 +18,17 @@ headers = {'content-type': 'application/json',
 def getInventory():
     r = requests.get('http://213.47.49.66:48080/api/inventory', headers=headers)
     if r.status_code == 200:
-        timestamp = str(datetime.datetime.now())
-        timestamp = timestamp[:-7]
-        inventory_list = r.json()
-
-        for object in inventory_list:
-            id_name = object["id"]
-            type = object["type"]
-            info = "getInventory"
-            new_entry = History(id_name=id_name, timestamp=timestamp, type=type, info=info)
-            db.session.add(new_entry)
-            db.session.commit()
+        # timestamp = str(datetime.datetime.now())
+        # timestamp = timestamp[:-7]
+        # inventory_list = r.json()
+        #
+        # for object in inventory_list:
+        #     id_name = object["id"]
+        #     type = object["type"]
+        #     info = "getInventory"
+        #     new_entry = History(id_name=id_name, timestamp=timestamp, type=type, info=info)
+        #     db.session.add(new_entry)
+        #     db.session.commit()
 
         return r.json(), 200
 
