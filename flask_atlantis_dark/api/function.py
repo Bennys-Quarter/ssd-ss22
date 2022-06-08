@@ -3,7 +3,10 @@ import requests
 from flask_atlantis_dark.apps.home.models import Weather, History
 from flask_atlantis_dark.apps import db
 import datetime
-from flask import jsonify
+from flask import jsonify, render_template
+from flask_login import login_required
+from flask_atlantis_dark.apps import login_manager
+from flask_atlantis_dark.api import blueprint
 
 api_key = "HUHJZKRNLZMHZXRLMKCHF5AT3"
 base_url = "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/"
@@ -12,6 +15,8 @@ headers = {'content-type': 'application/json',
            "Authorization": "Bearer jhQcOHRI3bFlBniEaPc7"
            }
 
+
+@login_required
 def getInventory():
     r = requests.get('http://213.47.49.66:48080/api/inventory', headers=headers)
     if r.status_code == 200:
@@ -32,6 +37,7 @@ def getInventory():
     return "No inventory available, please check connection", 404
 
 
+@login_required
 def getHistoryByID(id):
     if id == "all":
         entries = History.query.all()
@@ -57,6 +63,7 @@ def getHistoryByID(id):
 # 33d72edc26bc44d294c135038220606
 
 
+@login_required
 def get_weather():
     complete_url = base_url + "Graz" + "?unitGroup=metric&key=" + api_key + "&contentType=json"
     r = requests.get(complete_url)
@@ -93,3 +100,9 @@ def get_weather():
         return weather_data, 200
 
     return "No weather data available", 404
+
+# Errors
+
+@login_manager.unauthorized_handler
+def unauthorized_handler():
+    return render_template('home/page-403.html'), 403

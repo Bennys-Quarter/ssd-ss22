@@ -12,6 +12,7 @@ from apps.authentication.util import hash_pass
 class Users(db.Model, UserMixin):
 
     __tablename__ = 'Users'
+    __table_args__ = {'extend_existing': True}
 
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), unique=True)
