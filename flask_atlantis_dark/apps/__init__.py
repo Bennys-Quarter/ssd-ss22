@@ -42,8 +42,8 @@ headers = {'content-type': 'application/json',
            }
 
 def create_app(config):
-    app = connexion.App(__name__, specification_dir='../api')
-    app.add_api('User-API.yaml', base_path="/api")
+    app = connexion.App(__name__, specification_dir='api')
+    app.add_api('User-API.yaml', base_path='/api')
     app.app.config.from_object(config)
     register_extensions(app.app)
     register_blueprints(app.app)

@@ -4,8 +4,8 @@ Copyright (c) 2022 - Benedikt Görgei
 """
 
 from flask import jsonify
-from flask_atlantis_dark.apps.authentication.models import Users
-from flask_atlantis_dark.apps.authentication.util import verify_pass
+from apps.authentication.models import Users
+from apps.authentication.util import verify_pass
 from flask_login import (
     current_user,
     login_user,

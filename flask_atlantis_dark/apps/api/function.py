@@ -1,12 +1,10 @@
-import json
 import requests
-from flask_atlantis_dark.apps.home.models import Weather, History
-from flask_atlantis_dark.apps import db
+from apps.home.models import Weather, History
+from apps import db
 import datetime
 from flask import jsonify, render_template
 from flask_login import login_required
-from flask_atlantis_dark.apps import login_manager
-from flask_atlantis_dark.api import blueprint
+from apps import login_manager
 
 api_key = "HUHJZKRNLZMHZXRLMKCHF5AT3"
 base_url = "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/"
