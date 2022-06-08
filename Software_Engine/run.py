@@ -15,7 +15,7 @@ from flask_migrate import Migrate
 
 from apps import create_app, db
 from apps.config import config_dict
-from flask_atlantis_dark.apps.home.models import History
+from apps.home.models import History
 
 # WARNING: Don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=True, cast=bool)
@@ -72,7 +72,7 @@ def updateSensorData():
 
 if __name__ == "__main__":
     scheduler.add_job(func=updateSensorData, trigger="interval", seconds=180)  # Update sensor data every 3 minutes
-    scheduler.start()
+    #scheduler.start()
 
     app.run(debug=True, use_reloader=False)
 

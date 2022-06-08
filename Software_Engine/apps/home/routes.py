@@ -25,27 +25,34 @@ def clear_data(session):
 
 
 def darw_temp_plot():
-    timestamp = str(datetime.datetime.now())
-    timestamp = timestamp[:-7]
-    temperature = "0"
-    info = "temperature update"
-    new_entry = History(timestamp=timestamp, actuator_state='00000000',
-                        data=temperature, info=info)  # For testing only remove in deployment! This information should be gathered from the hardware engine
-    db.session.add(new_entry)
-    db.session.commit()
 
-    history = History.query.all()
-
+    sensor_data = History.query.filter_by(id_name="test-sensor").order_by(History.id.desc()).limit(20)
     entries = Weather.query.order_by(Weather.id.desc()).limit(20)
-    length = 1
+    length = 0
     temp_values = []
     temp_number = []
-    for en in entries:
-        temp_values.append(float(en.temperature))
-        temp_number.append(length)
-        length += 1
+    temp_time = []
+    for en in sensor_data:
+        if en.data:
+            temp_values.append(round(float(en.data), 1))
+            temp_number.append(length)
+            if length == 0:
+                temp_time.append(en.timestamp[-8:])
+            if length == 4:
+                temp_time.append(en.timestamp[-8:])
+            if length == 9:
+                temp_time.append(en.timestamp[-8:])
+            if length == 14:
+                temp_time.append(en.timestamp[-8:])
+            length += 1
+    if len(temp_time) < 3:
+        padding = 3 - len(temp_time)
+        for i in range(padding):
+            temp_time.append("")
+    print(temp_time)
+    history = History.query.all()
 
-    return temp_values, temp_number, history
+    return temp_values, temp_number, temp_time, history,
 
 
 @blueprint.route('/index')
@@ -57,10 +64,10 @@ def index():
     entries = Weather.query.order_by(Weather.id.desc())
     weather_data = entries.first()
 
-
-    tempdata, length, history = darw_temp_plot()
+    tempdata, length, temp_time, history = darw_temp_plot()
+    print(tempdata)
     return render_template('home/index.html', segment='index', weather_data=weather_data, tempdata=tempdata,
-                           length=length, history=history)
+                           length=length, temp_time=temp_time, history=history, )
 
 
 @blueprint.route('/<template>')

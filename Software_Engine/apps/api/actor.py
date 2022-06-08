@@ -14,6 +14,7 @@ headers2 = {'content-type': 'application/json',
 
 @login_required
 def setStateByID(id, state):
+
     if find_ID(id):
         payload = {"id": id, "value": str(state)}
         r = requests.post('http://213.47.49.66:48080/api/control/output', headers=headers2, data=json.dumps(payload))

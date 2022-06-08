@@ -17,7 +17,8 @@ def getStateByID(id):
         name_IO = entry.id_name
         url = "http://213.47.49.66:48080/api/states/" + type_IO + "/" + name_IO
         r = requests.get(url=url, headers=headers)
-        new_entry = History(id_name=name_IO, type=type_IO, data=r.json()["value"])
+        info="getStateByID"
+        new_entry = History(id_name=name_IO, type=type_IO, data=r.json()["value"], info=info)
         db.session.add(new_entry)
         db.session.commit()
 

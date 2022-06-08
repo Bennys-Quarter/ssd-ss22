@@ -27,7 +27,7 @@ The App is based on Open-source **[Flask Dashboard](https://appseed.us/admin-das
 > Get the code
 
 ```bash
-$ git clone https://github.com/app-generator/flask-atlantis-dark.git
+$ git clone https://gitlab.tugraz.at/CCB819495FE07083/ssd-ss22.git
 $ cd Software_Engine
 ```
 
@@ -43,7 +43,7 @@ Visit `http://localhost:85` in your browser. The app should be up & running.
 
 ```bash
 $ # Get the code
-$ git clone https://github.com/app-generator/flask-atlantis-dark.git
+$ git clone https://gitlab.tugraz.at/CCB819495FE07083/ssd-ss22.git
 $ cd Software_Engine
 $
 $ # Virtualenv modules installation (Unix based systems)
