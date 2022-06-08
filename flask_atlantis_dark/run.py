@@ -4,6 +4,7 @@ Copyright (c) 2019 - present AppSeed.us
 """
 
 import time
+import datetime
 from sys import exit
 
 import requests
@@ -13,6 +14,7 @@ from flask_migrate import Migrate
 
 from apps import create_app, db
 from apps.config import config_dict
+from flask_atlantis_dark.apps.home.models import History
 
 # WARNING: Don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=True, cast=bool)
@@ -30,6 +32,7 @@ except KeyError:
 
 app = create_app(app_config)
 app.app.config["TEMPLATES_AUTO_RELOAD"] = True
+app.app.app_context().push()
 Migrate(app, db)
 
 if DEBUG:
@@ -55,17 +58,20 @@ scheduler = BackgroundScheduler()
 headers = {"Authorization": "Bearer jhQcOHRI3bFlBniEaPc7"}
 def updateSensorData():
     print("Update data on " + time.strftime("%A, %d. %B %Y %I:%M:%S %p"))
-    sensors = ["test-sensor"]  # ToDo: use real sensors from db
-    for sensor in sensors:
+    info = "auto update"
+    io_type = "sensor"
+    for sensor in app.app.config["sensors"]:
         url = "http://213.47.49.66:48080/api/states/sensor/" + sensor
         r = requests.get(url=url, headers=headers)
-        print(r.json())
-        # ToDo: save in db
+        with app.app.app_context():
+            new_entry = History(id_name=sensor, timestamp=time.strftime("%Y-%m-%d %H:%M:%S"), type=io_type, info=info, data=r.json()["value"])
+            db.session.add(new_entry)
+            db.session.commit()
 
 
 if __name__ == "__main__":
-    scheduler.add_job(func=updateSensorData, trigger="interval", seconds=5)
-    #scheduler.start()
+    scheduler.add_job(func=updateSensorData, trigger="interval", seconds=180)  # Update sensor data every 3 minutes
+    scheduler.start()
 
     app.run(debug=True, use_reloader=False)
 
