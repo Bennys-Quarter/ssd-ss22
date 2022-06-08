@@ -8,6 +8,7 @@ from flask_login import login_required
 headers = {"Authorization": "Bearer jhQcOHRI3bFlBniEaPc7"}
 found_in_db = True
 
+@login_required
 def getActorStateByID(id): # ToDo: really needed? Same function as state/{id}
     pass
 
@@ -26,7 +27,6 @@ def setStateByID(id, state): # ToDo: check switch is in db
 
 @login_required
 def setTimerByID(id, time, state):
-
 
     if found_in_db: # ToDo: check id exists
         t = threading.Thread(target=timer, args=(id, time, state,), daemon=True)
