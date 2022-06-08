@@ -31,4 +31,5 @@ def login(username, password):
 
 
 def logout():
-    return "success", 200
+    logout_user()
+    return "successfully logged out", 200

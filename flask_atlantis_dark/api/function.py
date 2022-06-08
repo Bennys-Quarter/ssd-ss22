@@ -47,6 +47,7 @@ def getHistoryByID(id):
     history = []
     for entry in entries:
         dictionary = entry.__dict__
+        print(dictionary)
         del dictionary['_sa_instance_state']
         history.append(dictionary)
 

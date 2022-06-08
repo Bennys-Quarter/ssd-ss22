@@ -13,6 +13,8 @@ found_in_db = True
 @login_required
 def getStateByID(id):  # ToDo: find type and name in db
 
+
+
     if found_in_db:
         url = "http://213.47.49.66:48080/api/states/" + type_IO + "/" + name_IO
         r = requests.get(url=url, headers=headers)
