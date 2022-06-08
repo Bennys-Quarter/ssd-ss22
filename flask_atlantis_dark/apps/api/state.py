@@ -1,8 +1,8 @@
 import requests
 from flask import jsonify
 from flask_login import login_required
-from flask_atlantis_dark.apps.home.models import History
-from flask_atlantis_dark.apps import db
+from apps.home.models import History
+from apps import db
 
 headers = {"Authorization": "Bearer jhQcOHRI3bFlBniEaPc7"}
 

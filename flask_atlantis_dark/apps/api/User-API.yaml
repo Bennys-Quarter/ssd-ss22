@@ -20,7 +20,7 @@ tags:
 paths:
   /function/inventory:
     get:
-      operationId: api.function.getInventory
+      operationId: apps.api.function.getInventory
       tags:
       - functions
       responses:
@@ -32,7 +32,7 @@ paths:
                 $ref: '#/components/schemas/Inventory'
   /function/history/{id}:
     get:
-      operationId: api.function.getHistoryByID
+      operationId: apps.api.function.getHistoryByID
       tags:
       - functions
       parameters:
@@ -57,7 +57,7 @@ paths:
           description: Sensor not found
   /function/weather:
     get:
-      operationId: api.function.get_weather
+      operationId: apps.api.function.get_weather
       tags:
       - functions
       responses:
@@ -71,7 +71,7 @@ paths:
           description: No weather data available
   /state/{id}:
     get:
-      operationId: api.state.getStateByID
+      operationId: apps.api.state.getStateByID
       tags:
       - sensor
       parameters:
@@ -96,7 +96,7 @@ paths:
           description: IO not found
   /actor/{id}:
     get:
-      operationId: api.actor.getActorStateByID
+      operationId: apps.api.actor.getActorStateByID
       tags:
       - actor
       summary: Get the state current switch sate of the actor
@@ -122,7 +122,7 @@ paths:
           description: Actuator not found
   /actor/{id}/{state}:
     put:
-      operationId: api.actor.setStateByID
+      operationId: apps.api.actor.setStateByID
       tags:
       - actor
       summary: Change the state of actor
@@ -152,7 +152,7 @@ paths:
           description: id not found
   /actor/{id}/timer:
     put:
-      operationId: api.actor.setTimerByID
+      operationId: apps.api.actor.setTimerByID
       tags:
       - actor
       summary: Set a switch time for an actor
@@ -187,7 +187,7 @@ paths:
           description: ID not found
   /user/login:
     get:
-      operationId: api.user.login
+      operationId: apps.api.user.login
       tags:
       - user
       summary: Logs user into the system
@@ -234,7 +234,7 @@ paths:
           description: Invalid username/password supplied
   /user/logout:
     get:
-      operationId: api.user.logout
+      operationId: apps.api.user.logout
       tags:
       - user
       summary: Logs out current logged in user session

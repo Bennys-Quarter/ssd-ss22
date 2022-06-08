@@ -3,15 +3,13 @@
 Copyright (c) 2019 - present AppSeed.us
 """
 
-from flask_atlantis_dark.apps import db
-from flask_atlantis_dark.apps.home import blueprint
-from flask_atlantis_dark.apps.home.models import History, Weather
-from flask_atlantis_dark.api.function import get_weather
+from apps import db
+from apps.home import blueprint
+from apps.home.models import History, Weather
+from apps.api.function import get_weather
 from flask import render_template, request
 from flask_login import login_required
 from jinja2 import TemplateNotFound
-import requests
-import json
 import datetime
 
 api_key = "HUHJZKRNLZMHZXRLMKCHF5AT3"

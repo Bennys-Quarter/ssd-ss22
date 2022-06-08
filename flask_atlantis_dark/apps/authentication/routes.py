@@ -13,7 +13,7 @@ from flask_login import (
 from apps import db, login_manager
 from apps.authentication import blueprint
 from apps.authentication.forms import LoginForm, CreateAccountForm
-from flask_atlantis_dark.apps.authentication.models import Users
+from apps.authentication.models import Users
 
 from apps.authentication.util import verify_pass
 

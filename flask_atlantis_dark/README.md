@@ -131,7 +131,7 @@ The project is coded using blueprints, app factory pattern, dual configuration p
    |    |         |-- *.html                # All other pages
    |    |    
    |  config.py                             # Set up the app
-   |    __init__.py                         # Initialize the app
+   |    __init__.py                        # Initialize the app
    |
    |-- requirements.txt                     # Development modules - SQLite storage
    |-- requirements-mysql.txt               # Production modules  - Mysql DMBS
