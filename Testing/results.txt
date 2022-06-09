@@ -17,3 +17,23 @@ success -> control/output Invalid request
 success -> control/output Entity does not exist
 
 ######## Software engine tests ########
+success -> user login
+success -> get inventory
+success -> get sensor data
+success -> get actor state
+success -> get history
+success -> get weather data
+success -> set actor state
+success -> set timer (only succeeds with real HW)
+
+######## Software engine error tests ########
+success -> invalid login
+success -> get inventory unauthorized access
+success -> get sensor data unauthorized access
+success -> get actor state unauthorized access
+success -> get history unauthorized access
+success -> get weather data unauthorized access
+success -> get state io not found
+success -> get history io not found
+
+success -> user logout
