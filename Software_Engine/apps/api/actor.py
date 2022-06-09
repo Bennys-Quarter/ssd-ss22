@@ -51,7 +51,7 @@ def timer(id, unix_time, state):
     payload = {"id": id, "value": state}
     pause.until(datetime.fromtimestamp(unix_time))
     print("Timer: set IO: " + id)
-    r = requests.post('http://213.47.49.66:48080/api/control/output', headers=headers, data=json.dumps(payload))
+    r = requests.post('http://213.47.49.66:48080/api/control/output', headers=headers2, data=json.dumps(payload))
     if r.status_code != 200:
         print("Error IO not setable")
 

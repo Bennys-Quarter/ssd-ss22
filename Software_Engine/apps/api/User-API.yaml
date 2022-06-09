@@ -116,7 +116,7 @@ paths:
         style: simple
         explode: false
         schema:
-          type: boolean
+          type: integer
       responses:
         "200":
           description: successfully set state
