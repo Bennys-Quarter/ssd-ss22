@@ -116,14 +116,16 @@ A testing script is provided for automatic testing all api functionalities of th
 
 The following api paths are provided:
 
-- http://localhost:5005/api/user/login &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; user login via api
-- http://localhost:5005/api/user/logout &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  user logout via api
-- http://localhost:5005/api/function/inventory &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; here you can see the device id
-- http://localhost:5005/api/function/history/{id} &nbsp;&nbsp;&nbsp; get the history of a divice, or use 'all'
-- http://localhost:5005/api/function/weather &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; get weather json from https://www.visualcrossing.com
-- http://localhost:5005/api/state/{id} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; get sensor reading or actor state
-- http://localhost:5005/api/actor/{id}/{state}  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; device id and state={true,false}
-- http://localhost:5005/api/actor/{id}/timer &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; access timer function
+```bash
+- http://localhost:5005/api/user/login?username=admin&password=password   user login via api 
+- http://localhost:5005/api/user/logout                                   user logout via api
+- http://localhost:5005/api/function/inventory                            here you can see the device id
+- http://localhost:5005/api/function/history/{id}                         get the history of a divice, or use /all
+- http://localhost:5005/api/function/weather                              get weather json from https://www.visualcrossing.com
+- http://localhost:5005/api/state/{id}                                    get sensor reading or actor state
+- http://localhost:5005/api/actor/{id}/{state}                            device id and state={true,false}
+- http://localhost:5005/api/actor/{id}/timer                              access timer functions
+```
 
 ```bash
 $ cd ..\Testing
