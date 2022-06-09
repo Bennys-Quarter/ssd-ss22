@@ -2,19 +2,10 @@ version: '3.7'
 services:
   appseed-app:
     container_name: appseed_app
-    restart: always
     env_file: .env
     build: .
-  nginx:
-    container_name: nginx
-    restart: always
-    image: "nginx:latest"
     ports:
-      - "85:85"
-    volumes:
-      - ./nginx:/etc/nginx/conf.d
-    depends_on: 
-      - appseed-app
+      - "5005:5005"
 networks:
   default:
     name: hardware_engine_hw-engine
