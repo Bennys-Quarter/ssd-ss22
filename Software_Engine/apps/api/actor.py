@@ -5,6 +5,9 @@ import pause
 from datetime import datetime
 from flask_login import login_required
 from flask import current_app
+from apps.home.models import History
+from apps import db
+import datetime
 
 headers = {"Authorization": "Bearer jhQcOHRI3bFlBniEaPc7"}
 headers2 = {'content-type': 'application/json',
@@ -14,13 +17,21 @@ headers2 = {'content-type': 'application/json',
 
 @login_required
 def setStateByID(id, state):
-    print(id,state)
+
     if find_ID(id):
         payload = {"id": id, "value": str(state)}
         r = requests.post('http://213.47.49.66:48080/api/control/output', headers=headers2, data=json.dumps(payload))
         if r.status_code == 200:
+            print("successfully set state")
+            info = "state set"
+            timestamp = str(datetime.datetime.now())
+            timestamp = timestamp[:-7]
+            new_entry = History(id_name=id, timestamp=timestamp, type="output", info=info, data=state)
+            db.session.add(new_entry)
+            db.session.commit()
             return "successfully set state", 200
         else:
+            print("state operation not successful", id, state)
             return "state operation not successful", 500
 
     return "id not found", 404

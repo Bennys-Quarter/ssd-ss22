@@ -72,9 +72,7 @@ def updateSensorData():
 
 if __name__ == "__main__":
     scheduler.add_job(func=updateSensorData, trigger="interval", seconds=180)  # Update sensor data every 3 minutes
-    #scheduler.start()
+    scheduler.start()
 
     app.run(debug=True, use_reloader=False)
 
-
-#TODO: Make the Color choice functional again or remove it
