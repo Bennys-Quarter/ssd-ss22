@@ -30,7 +30,7 @@ interface for human entities. This task is performed by the Software engine.
 > Get the code 
 
 ```bash
-$ git clone 
+$ git clone https://github.com/Bennys-Quarter/ssd-ss22.git
 ```
 
 > Start the Hardware engine
