@@ -21,7 +21,7 @@ abstraction layer (service) Hardware Engine, it has the following tasks:
 The Hardware Engine on its own does not provide any automation functionality nor an appropriate
 interface for human entities. This task is performed by the Software engine. 
 
-![alt text](Software_Engine/apps/static/assets/Screenshot 2022-06-09 203826.png)
+![alt text](https://github.com/Bennys-Quarter/ssd-ss22/blob/main/Software_Engine/apps/static/assets/Screenshot%202022-06-09%20203826.png)
 
 
 ## Installation
