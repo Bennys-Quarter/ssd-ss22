@@ -14,7 +14,7 @@ from jinja2 import TemplateNotFound
 from flask_wtf import FlaskForm
 from wtforms import SubmitField
 import json
-
+import datetime
 
 class PowerSwitchForm(FlaskForm):
     power_switch = SubmitField("ON")
@@ -69,6 +69,9 @@ def index():
     weather_data = entries.first()
 
     tempdata, temp_number, temp_time,length, history = darw_temp_plot()
+    print(temp_time)
+    print(tempdata)
+    print(temp_number)
     return render_template('home/index.html', segment='index', weather_data=weather_data, tempdata=tempdata,
                            temp_number=json.dumps(temp_number), temp_time=temp_time, history=history, length=length)
 
