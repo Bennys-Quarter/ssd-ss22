@@ -64,7 +64,7 @@ if __name__ == '__main__':
            ["api/state/test-k0", 200, "get actor state"],
            ["api/function/history/test-sensor", 200, "get history"],
            ["api/function/weather", 200, "get weather data"]
-           ]
+          ]
 
     s = requests.Session()
     for tc in tcs:
@@ -79,14 +79,40 @@ if __name__ == '__main__':
     time_delay = 5
     timestamp = int(datetime.datetime.now().timestamp()) + time_delay
     tc_timer = ["api/actor/light/timer?time=" + str(timestamp) + "&state=1", 200, "set timer (only succeeds with real HW)"]
-    r = s.put(sw_engine_url + tc_actor[0])
+    r = s.put(sw_engine_url + tc_timer[0])
+    print(r.json())
     time.sleep(time_delay)
     actor_state = ["api/state/light", 200, "get actor state"]
     r = s.get(sw_engine_url + actor_state[0])
     f.write("{} -> {}\n".format("success" if r.json()["value"] == "1" else "fail", tc_timer[2]))
 
+    f.write("\n######## Software engine error tests ########\n")
+
+    tcs = [["api/user/login?username=nono&password=nono", 400, "invalid login"],
+           ["api/function/inventory", 401, "get inventory unauthorized access"],
+           ["api/state/test-sensor", 401, "get sensor data unauthorized access"],
+           ["api/state/test-k0", 401, "get actor state unauthorized access"],
+           ["api/function/history/test-sensor", 401, "get history unauthorized access"],
+           ["api/function/weather", 401, "get weather data unauthorized access"]
+           ]
+
+    for tc in tcs:
+        r = requests.get(sw_engine_url + tc[0])
+        f.write("{} -> {}\n".format("success" if r.status_code == tc[1] else "fail", tc[2]))
+
+    tcs = [["api/state/noIO", 404, "get state io not found"],
+           ["api/function/history/noIO", 404, "get history io not found"],
+           ]
+
+    for tc in tcs:
+        r = s.get(sw_engine_url + tc[0])
+        print(r.json())
+        print(r.status_code)
+        f.write("{} -> {}\n".format("success" if r.status_code == tc[1] else "fail", tc[2]))
+
     tc_logout = ["api/user/logout", 200, "user logout"]
     r = s.get(sw_engine_url + tc_logout[0])
-    f.write("{} -> {}\n".format("success" if r.status_code == tc_logout[1] else "fail", tc_logout[2]))
+    f.write("\n{} -> {}\n".format("success" if r.status_code == tc_logout[1] else "fail", tc_logout[2]))
 
     f.close()
+
