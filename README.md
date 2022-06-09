@@ -36,7 +36,7 @@ $ git clone https://github.com/Bennys-Quarter/ssd-ss22.git
 > Start the Hardware engine
 
 ```bash
-$ cd ssd-ss22\Software_Engine
+$ cd ssd-ss22\Hardware_Engine
 $ docker-compose up  
 ```
 
