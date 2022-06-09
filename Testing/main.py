@@ -14,7 +14,7 @@ payload = {"id": "test-k0", "value": "1"}
 
 # Change me
 hw_engine_url = "http://localhost:8080/"
-sw_engine_url = "http://localhost:85/"
+sw_engine_url = "http://localhost:5005/"
 
 if __name__ == '__main__':
     f = open("results.txt", 'w')
