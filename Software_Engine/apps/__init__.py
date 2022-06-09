@@ -49,7 +49,7 @@ def create_app(config):
     register_blueprints(app.app)
     configure_database(app.app)
 
-    app.app.config["hw_engine_url"] = "http://213.47.49.66:48080"
+    app.app.config["hw_engine_url"] = "http://hw_engine:8080"
 
     r = requests.get(app.app.config["hw_engine_url"] + '/api/inventory', headers=headers)
     app.app.config["inventory"] = r.json()

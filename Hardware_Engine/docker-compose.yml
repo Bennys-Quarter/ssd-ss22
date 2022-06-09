@@ -7,6 +7,8 @@ services:
       - ./mosquitto_config:/mosquitto/config:Z
     ports:
       - 1883:1883/tcp
+    networks:
+      - hw-engine
   hw_engine:
     build:
       context: ./
@@ -16,3 +18,9 @@ services:
             - mosquitto
     ports:
       - 8080:8080/tcp  
+    networks:
+      - hw-engine
+networks:
+  hw-engine:
+    # Use a custom driver
+    driver: bridge
