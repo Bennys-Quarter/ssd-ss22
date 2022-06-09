@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generator: Gravit.io -->
+
+<svg
+   style="isolation:isolate"
+   viewBox="0 0 140.02109 33.362999"
+   width="140.02109"
+   height="33.362999"
+   version="1.1"
+   id="svg47"
+   sodipodi:docname="logo.svg"
+   inkscape:version="1.2 (dc2aedaf03, 2022-05-15)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview49"
+     pagecolor="#505050"
+     bordercolor="#ffffff"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="1"
+     inkscape:deskcolor="#505050"
+     showgrid="false"
+     inkscape:zoom="8"
+     inkscape:cx="58.625"
+     inkscape:cy="16.3125"
+     inkscape:window-width="1920"
+     inkscape:window-height="991"
+     inkscape:window-x="-9"
+     inkscape:window-y="-9"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg47" />
+  <defs
+     id="defs33">
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 15.862999 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="108 : 15.862999 : 1"
+       inkscape:persp3d-origin="54.000001 : 10.029666 : 1"
+       id="perspective373" />
+    <clipPath
+       id="_clipPath_Oym1fQWp4902RANcb93UAmaY2a1Es4ds">
+      <rect
+         width="108"
+         height="35"
+         id="rect30"
+         x="0"
+         y="0" />
+    </clipPath>
+  </defs>
+  <g
+     clip-path="url(#_clipPath_Oym1fQWp4902RANcb93UAmaY2a1Es4ds)"
+     id="g45"
+     transform="translate(-1,-0.879)">
+    <g
+       id="g43">
+      <path
+         d="M 29.894,9.22 15.447,0.879 1,9.22 v 16.682 l 4.816,2.78 V 12 L 15.447,6.44 25.078,12 v 16.682 l 4.816,-2.78 z"
+         fill="#ffffff"
+         id="path37" />
+      <path
+         d="M 20.262,14.781 15.447,12 10.631,14.781 v 5.56 l 4.816,2.78 4.815,-2.78 z"
+         fill="#ffffff"
+         id="path39" />
+      <path
+         d="m 20.262,25.902 -4.815,2.78 -4.816,-2.78 v 5.56 l 4.816,2.78 4.815,-2.78 z"
+         fill="#ffffff"
+         id="path41" />
+    </g>
+  </g>
+  <text
+     xml:space="preserve"
+     style="fill:#000000"
+     x="38.951534"
+     y="16.887058"
+     id="text451"><tspan
+       sodipodi:role="line"
+       id="tspan449"
+       x="38.951534"
+       y="16.887058" /></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff;fill-opacity:1"
+     x="31.880466"
+     y="22.543911"
+     id="text455"><tspan
+       sodipodi:role="line"
+       id="tspan453"
+       x="31.880466"
+       y="22.543911">SmartHomies</tspan></text>
+  <rect
+     style="fill:#ffffff;fill-opacity:1;stroke-width:1.47358"
+     id="rect1253"
+     width="8.3093262"
+     height="7.6932869"
+     x="7.4734664"
+     y="13.929428"
+     transform="matrix(0.86852627,-0.49564314,0.51608778,0.8565357,0,0)" />
+  <rect
+     style="isolation:isolate;fill:#ffffff;fill-opacity:1;stroke-width:1.47358"
+     id="rect1253-8"
+     width="8.3093262"
+     height="7.6932869"
+     x="-17.281599"
+     y="-0.36954635"
+     transform="matrix(-0.86852627,-0.49564314,-0.51608778,0.8565357,0,0)" />
+  <rect
+     style="isolation:isolate;fill:#ffffff;fill-opacity:1;stroke-width:1.47358"
+     id="rect1253-8-1"
+     width="8.3093262"
+     height="7.6932869"
+     x="-21.002295"
+     y="-3.2707119"
+     transform="matrix(-0.86852627,-0.49564314,-0.51608778,0.8565357,0,0)" />
+</svg>
