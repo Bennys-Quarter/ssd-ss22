@@ -7,10 +7,17 @@ from apps import db
 from apps.home import blueprint
 from apps.home.models import History, Weather
 from apps.api.function import get_weather
-from flask import render_template, request
+from apps.api.actor import setStateByID
+from flask import render_template, request,  flash, redirect, url_for
 from flask_login import login_required
 from jinja2 import TemplateNotFound
+from flask_wtf import FlaskForm
+from wtforms import SubmitField
 import json
+
+
+class PowerSwitchForm(FlaskForm):
+    power_switch = SubmitField("ON")
 
 api_key = "HUHJZKRNLZMHZXRLMKCHF5AT3"
 base_url = "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/"
@@ -49,27 +56,36 @@ def darw_temp_plot():
         padding = 3 - len(temp_time)
         for i in range(padding):
             temp_time.append("")
-    print(temp_time)
     history = History.query.all()
-    print(temp_number)
-    print(length)
     return temp_values, temp_number, temp_time, length, history,
 
 
-@blueprint.route('/index')
+@blueprint.route('/index', methods=['GET', 'POST'])
 @login_required
 def index():
-    #Weather.query.delete()  # Delete this line to make entries permanent
     _weather_data_json, _response_code = get_weather()
 
     entries = Weather.query.order_by(Weather.id.desc())
     weather_data = entries.first()
 
     tempdata, temp_number, temp_time,length, history = darw_temp_plot()
-    print(tempdata)
     return render_template('home/index.html', segment='index', weather_data=weather_data, tempdata=tempdata,
                            temp_number=json.dumps(temp_number), temp_time=temp_time, history=history, length=length)
 
+@blueprint.route('/', methods=['GET', 'POST'])
+def power():
+    # Weather.query.delete()  # Delete this line to make entries permanent
+    if request.method == 'POST':
+        if request.form.get('action1') == 'ON':
+            setStateByID('light', 1)
+        elif request.form.get('action2') == 'OFF':
+            setStateByID('light', 0)
+        elif request.form.get('action2') == 'ON':
+            setStateByID('test-k0', 1)
+        elif request.form.get('action2') == 'OFF':
+            setStateByID('test-k0', 0)
+
+    return redirect(url_for('home_blueprint.index'))
 
 @blueprint.route('/<template>')
 @login_required
