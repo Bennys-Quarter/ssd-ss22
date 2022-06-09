@@ -40,7 +40,7 @@ $ cd ssd-ss22\Hardware_Engine
 $ docker-compose up  
 ```
 
-> Start the Software Engine
+> Start the Software Engine in a new terminal
 
 ```bash
 $ cd ..\Software_Engine
