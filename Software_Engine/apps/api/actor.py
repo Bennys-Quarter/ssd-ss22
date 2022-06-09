@@ -20,7 +20,7 @@ def setStateByID(id, state):
 
     if find_ID(id):
         payload = {"id": id, "value": str(state)}
-        r = requests.post('http://213.47.49.66:48080/api/control/output', headers=headers2, data=json.dumps(payload))
+        r = requests.post(current_app.config["hw_engine_url"] + '/api/control/output', headers=headers2, data=json.dumps(payload))
         if r.status_code == 200:
             print("successfully set state")
             info = "state set"
@@ -48,10 +48,9 @@ def setTimerByID(id, time, state):
 
 
 def timer(id, unix_time, state):
-    payload = {"id": id, "value": state}
+    payload = {"id": id, "value": str(state)}
     pause.until(datetime.fromtimestamp(unix_time))
-    print("Timer: set IO: " + id)
-    r = requests.post('http://213.47.49.66:48080/api/control/output', headers=headers2, data=json.dumps(payload))
+    r = requests.post(current_app.config["hw_engine_url"] + '/api/control/output', headers=headers2, data=json.dumps(payload))
     if r.status_code != 200:
         print("Error IO not setable")
 

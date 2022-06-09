@@ -49,7 +49,9 @@ def create_app(config):
     register_blueprints(app.app)
     configure_database(app.app)
 
-    r = requests.get('http://213.47.49.66:48080/api/inventory', headers=headers)
+    app.app.config["hw_engine_url"] = "http://213.47.49.66:48080"
+
+    r = requests.get(app.app.config["hw_engine_url"] + '/api/inventory', headers=headers)
     app.app.config["inventory"] = r.json()
     sensors = []
     for io in r.json():

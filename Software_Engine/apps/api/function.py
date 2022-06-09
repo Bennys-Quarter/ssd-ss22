@@ -5,6 +5,7 @@ import datetime
 from flask import jsonify, render_template
 from flask_login import login_required
 from apps import login_manager
+from flask import current_app
 
 api_key = "HUHJZKRNLZMHZXRLMKCHF5AT3"
 base_url = "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/"
@@ -16,7 +17,7 @@ headers = {'content-type': 'application/json',
 
 @login_required
 def getInventory():
-    r = requests.get('http://213.47.49.66:48080/api/inventory', headers=headers)
+    r = requests.get(current_app.config["hw_engine_url"] + '/api/inventory', headers=headers)
     if r.status_code == 200:
         timestamp = str(datetime.datetime.now())
         timestamp = timestamp[:-7]

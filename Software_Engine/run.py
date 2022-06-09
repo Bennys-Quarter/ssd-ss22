@@ -62,7 +62,7 @@ def updateSensorData():
     info = "auto update"
     io_type = "sensor"
     for sensor in app.app.config["sensors"]:
-        url = "http://213.47.49.66:48080/api/states/sensor/" + sensor
+        url = app.app.config["hw_engine_url"] + "/api/states/sensor/" + sensor
         r = requests.get(url=url, headers=headers)
         with app.app.app_context():
             new_entry = History(id_name=sensor, timestamp=time.strftime("%Y-%m-%d %H:%M:%S"), type=io_type, info=info, data=r.json()["value"])

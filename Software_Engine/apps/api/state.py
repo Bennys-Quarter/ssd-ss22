@@ -11,13 +11,10 @@ headers = {"Authorization": "Bearer jhQcOHRI3bFlBniEaPc7"}
 
 @login_required
 def getStateByID(id):
-
-    #entry = History.query.filter_by(id_name=id).first()
-
     if find_ID(id):
         type_IO = find_type(id)
         name_IO = id
-        url = "http://213.47.49.66:48080/api/states/" + type_IO + "/" + name_IO
+        url = current_app.config["hw_engine_url"] + "/api/states/" + type_IO + "/" + name_IO
         r = requests.get(url=url, headers=headers)
         info="getStateByID"
         timestamp = str(datetime.datetime.now())
