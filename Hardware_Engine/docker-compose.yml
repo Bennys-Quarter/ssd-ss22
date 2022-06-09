@@ -1,10 +1,18 @@
 version: "3.7"
  
 services:
+  mosquitto:
+    image: eclipse-mosquitto
+    volumes:
+      - ./mosquitto_config:/mosquitto/config:Z
+    ports:
+      - 1883:1883/tcp
   hw_engine:
     build:
       context: ./
     volumes:
       - ./databases:/app/databases:Z
+    depends_on:
+            - mosquitto
     ports:
       - 8080:8080/tcp  
