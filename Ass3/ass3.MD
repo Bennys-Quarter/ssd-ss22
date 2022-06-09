@@ -7,6 +7,7 @@ geometry: "margin=30mm"
 toc: true
 colorlinks: true
 numbersections: true
+fontfamilyoptions: sfdefault
 ---
 
 # Scoping and Structuring

@@ -116,85 +116,99 @@ Technische Universität Graz \\ % Your institution for the title page
 %------------------------------------------------
 \section{Introduction} % Sections can be created in order to organize your presentation into discrete blocks, all sections and subsections are automatically printed in the table of contents as an overview of the talk
 %------------------------------------------------
-\subsection{Concept}
+\subsection{Aim and Motivation}
 \begin{frame}
-\frametitle{Introduction - Concept}
+\frametitle{Aim and Motivation}
 \begin{itemize}
-\item Tiny network enabled device
-\item Two relay outputs
-\item Two logic inputs
-\item One BUS interface for sensors
-\item Client - server model
-\item MQTT for controlling and sensing
-\item TELNET \& serial for configuration 
-\end{itemize}
-\end{frame}
-
-\begin{frame}
-\frametitle{Introduction - Concept}
-\begin{figure}
-\includegraphics[width=0.6\linewidth]{./figures/concept.pdf}
-\end{figure}
-\end{frame}
-
-%------------------------------------------------
-\section{Hardware}
-\subsection{Schematic}
-%------------------------------------------------
-\begin{frame}
-\frametitle{Hardware - Schematic}
-\begin{figure}
-\includegraphics[width=0.65\linewidth]{./figures/schematic.png}
-\end{figure}
-\end{frame}
-
-%------------------------------------------------
-\subsection{PCB Layout}
-%------------------------------------------------
-\begin{frame}
-\frametitle{Hardware - PCB Layout}
-\begin{figure}
-\includegraphics[width=0.5\linewidth]{./figures/layout.png}
-\end{figure}
-\end{frame}
-
-
-%------------------------------------------------
-\section{Software}
-\subsection{Firmware}
-%------------------------------------------------
-\begin{frame}
-\frametitle{Software - Firmware}
-\begin{itemize}
-\item Framework based on a previous project
-\item Simple CLI for configuration \& setup
-\item TELNET \& serial for configuration 
-\item Client - server model
-\item MQTT used for control channel and state channel
-\item Firmware upgrade OTA over HTTP
+\item Pre-existing network-enabled hardware I/O modules
+\item General purpose inputs and outputs 
+\item Sensor BUS
+\item Building a smart service to control the hardware modules
 \end{itemize}
 \end{frame}
 
 %------------------------------------------------
-\section{State of the Project}
-\subsection{Current State}
+\section{Concept}
+\subsection{Components}
 %------------------------------------------------
 \begin{frame}
-\frametitle{State of the Project - Current State}
+\frametitle{Components}
+\begin{figure}
+\includegraphics[width=0.65\linewidth]{./figures/specification.pdf}
+\end{figure}
+\end{frame}
+
+%------------------------------------------------
+\subsection{Services}
+%------------------------------------------------
+\begin{frame}
+\frametitle{Components and Services}
+\begin{itemize}
+\item Physical domain
+\begin{itemize}
+\item Devices to control
+\item Hardware I/O modules
+\end{itemize}
+\item Logical domain
+\begin{itemize}
+\item MQTT Broker
+\item Hardware Engine
+\item Service Engine
+\item External Services
+\item User Frontend
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+
+%------------------------------------------------
+\section{Implementation}
+\subsection{Software Implementation}
+%------------------------------------------------
+\begin{frame}
+\frametitle{Software Implementation}
+\begin{itemize}
+\item Communication Protocols
+\begin{itemize}
+\item MQTT for communicating with hardware
+\item HTTP - REST
+\end{itemize}
+\item Programming Language and Frameworks
+\begin{itemize}
+\item Python 3
+\item Flask 
+\end{itemize}
+\item Deployment - Docker:
+\begin{itemize}
+\item MQTT Broker
+\item Hardware Engine
+\item Service Engine and User Frontend
+\end{itemize}
+
+\end{itemize}
+\end{frame}
+
+
+
+%------------------------------------------------
+\section{User Story and Demo}
+\subsection{User Story}
+%------------------------------------------------
+\begin{frame}
+\frametitle{User Story}
+\begin{itemize}
+\item USER STORY BLA BLA BLA
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------
+\subsection{Demo}
+%------------------------------------------------
+\begin{frame}
+\frametitle{Demo}
 
 \begin{itemize}
- \item[$\boxtimes$] Waiting for feedback                      (10/04/22) 
- \item[$\boxtimes$] Finishing the design of the PCB           (17/04/22) 
- \item[$\boxtimes$] Placing the order on JLCPCB               (17/04/22) 
- \item[$\boxtimes$] Creating a prototype of the firmware      (17/04/22) 
- \item[$\boxtimes$] Preparing the mid-term presentation       (01/05/22) 
- \item[$\boxtimes$] Soldering of the remaining components     (08/05/22) 
- \item[$\boxtimes$] Testing the hardware                      (15/05/22) 
- \item[$\square$] Adding hardware support to firmware       (15/05/22) 
- \item[$\square$] Setting up the test network               (22/05/22) 
- \item[$\square$] Setting up the Raspberry PI               (22/05/22) 
- \item[$\square$] Creation of the demo video                (31/05/22) 
- \item[$\square$] Writing the report                        (31/05/22) 
+ \item[$\boxtimes$] DEMO BLA BLA BLA
 \end{itemize}
 \end{frame}
 

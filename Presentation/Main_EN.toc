@@ -1,9 +1,10 @@
 \beamer@sectionintoc {1}{Introduction}{3}{0}{1}
-\beamer@subsectionintoc {1}{1}{Concept}{3}{0}{1}
-\beamer@sectionintoc {2}{Hardware}{5}{0}{2}
-\beamer@subsectionintoc {2}{1}{Schematic}{5}{0}{2}
-\beamer@subsectionintoc {2}{2}{PCB Layout}{6}{0}{2}
-\beamer@sectionintoc {3}{Software}{7}{0}{3}
-\beamer@subsectionintoc {3}{1}{Firmware}{7}{0}{3}
-\beamer@sectionintoc {4}{State of the Project}{8}{0}{4}
-\beamer@subsectionintoc {4}{1}{Current State}{8}{0}{4}
+\beamer@subsectionintoc {1}{1}{Aim and Motivation}{3}{0}{1}
+\beamer@sectionintoc {2}{Concept}{4}{0}{2}
+\beamer@subsectionintoc {2}{1}{Components}{4}{0}{2}
+\beamer@subsectionintoc {2}{2}{Services}{5}{0}{2}
+\beamer@sectionintoc {3}{Implementation}{6}{0}{3}
+\beamer@subsectionintoc {3}{1}{Software Implementation}{6}{0}{3}
+\beamer@sectionintoc {4}{User Story and Demo}{7}{0}{4}
+\beamer@subsectionintoc {4}{1}{User Story}{7}{0}{4}
+\beamer@subsectionintoc {4}{2}{Demo}{8}{0}{4}
