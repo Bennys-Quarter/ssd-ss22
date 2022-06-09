@@ -40,17 +40,17 @@ def setStateByID(id, state):
 @login_required
 def setTimerByID(id, time, state):
     if find_ID(id):
-        t = threading.Thread(target=timer, args=(id, time, state,), daemon=True)
+        t = threading.Thread(target=timer, args=(id, time, state, current_app._get_current_object(),), daemon=True)
         t.start()
         return "Successfully set timer", 200
 
     return "ID not found", 404
 
 
-def timer(id, unix_time, state):
+def timer(id, unix_time, state, context):
     payload = {"id": id, "value": str(state)}
-    pause.until(datetime.fromtimestamp(unix_time))
-    r = requests.post(current_app.config["hw_engine_url"] + '/api/control/output', headers=headers2, data=json.dumps(payload))
+    pause.until(datetime.datetime.fromtimestamp(unix_time))
+    r = requests.post(context.config["hw_engine_url"] + '/api/control/output', headers=headers2, data=json.dumps(payload))
     if r.status_code != 200:
         print("Error IO not setable")
 
